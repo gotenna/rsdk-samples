@@ -1,0 +1,23 @@
+[versions]
+agp = "8.1.4"
+kotlin = "2.0.0"
+artifactory = "4.32.0"
+dokka = "1.9.20"
+org-jetbrains-kotlin-jvm = "1.9.23"
+radio-sdk = "1.0.40"
+radio-sdk-jvm = "3.0.3"
+
+[libraries]
+radioSdk = { module = "com.gotenna.sdk:radio-sdk-external", version.ref = "radio-sdk" }
+radioSdk-jvm = { module = "com.gotenna.sdk:radio-sdk-external-jvm", version.ref = "radio-sdk-jvm" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+artifactory = { id = "com.jfrog.artifactory", version.ref = "artifactory"}
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
