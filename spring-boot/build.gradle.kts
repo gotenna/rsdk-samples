@@ -46,7 +46,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.usb4java:usb4java-javax:1.3.0")
 
-    implementation(libs.radioSdk.jvm)
+    implementation(libs.radioSdk)
 }
 
 dependencyManagement {

@@ -4,12 +4,10 @@ kotlin = "2.0.0"
 artifactory = "4.32.0"
 dokka = "1.9.20"
 org-jetbrains-kotlin-jvm = "1.9.23"
-radio-sdk = "1.0.40"
-radio-sdk-jvm = "3.0.3"
+radio-sdk = "3.0.3"
 
 [libraries]
-radioSdk = { module = "com.gotenna.sdk:radio-sdk-external", version.ref = "radio-sdk" }
-radioSdk-jvm = { module = "com.gotenna.sdk:radio-sdk-external-jvm", version.ref = "radio-sdk-jvm" }
+radioSdk = { module = "com.gotenna.sdk:radio-sdk-external-jvm", version.ref = "radio-sdk" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
