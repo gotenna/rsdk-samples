@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -56,4 +57,10 @@ dependencyManagement {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.withType<JavaExec> {
+    val localProperties = gradleLocalProperties(rootDir)
+    environment("SDK_TOKEN", localProperties.getProperty("sdk.token"))
+    environment("SDK_APPID", localProperties.getProperty("sdk.appid"))
 }
