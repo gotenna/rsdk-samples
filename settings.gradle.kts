@@ -12,7 +12,7 @@ pluginManagement {
 }
 
 val localProperties: java.util.Properties by lazy {
-    File("local.properties").inputStream().use { input ->
+    File(rootDir.absolutePath, "local.properties").inputStream().use { input ->
         java.util.Properties().apply {
             load(input)
         }
