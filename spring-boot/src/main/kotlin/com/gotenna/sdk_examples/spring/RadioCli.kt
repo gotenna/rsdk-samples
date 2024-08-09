@@ -31,8 +31,8 @@ import kotlin.random.Random
 @ShellCommandGroup("Radio interactions")
 class RadioCli {
 
-    var devices: MutableList<RadioModel> = mutableListOf()
-    var destination: Long = 0L
+    private var devices: MutableList<RadioModel> = mutableListOf()
+    private var destination: Long = 0L
 
     init {
         val token = System.getenv("SDK_TOKEN")
@@ -40,14 +40,31 @@ class RadioCli {
         CoroutineScope(Dispatchers.IO).launch {
             GotennaClient.initialize(
                 sdkToken = token,
-                preProcessAction = null,
-                postProcessAction = null,
+                preProcessAction = { bytes, encryptionParams, senderGid ->
+                    // encrypt outgoing messages
+                    /*
+                        encryptionParams?.keyUuid
+                        encryptionParams?.iv
+                    */
+                    bytes // return the processed bytes
+                },
+                postProcessAction = { bytes, header ->
+                    // decrypt incoming messages
+                    /*
+                        header.encryptionParameters?.keyUuid
+                        header.encryptionParameters?.iv
+                    */
+                    bytes // return the processed bytes
+                },
                 enableDebugLogs = true
             )
         }
     }
 
-    @Command(command = ["scan"], description = "This will attempt to scan for any radios that are connected.")
+    @Command(
+        command = ["scan"],
+        description = "This will attempt to scan for any radios that are connected."
+    )
     fun scan(@Option(longNames = ["connectionType"], required = true) connectionType: ConnectionType): List<RadioModel> {
         return runBlocking {
             devices = GotennaClient.scan(connectionType).toMutableList()
@@ -58,14 +75,20 @@ class RadioCli {
         }
     }
 
-    @Command(command = ["connect"], description = "This will attempt to connect to the first scanned device.")
+    @Command(
+        command = ["connect"],
+        description = "This will attempt to connect to the first scanned device."
+    )
     fun connect(): Boolean {
         return runBlocking {
             devices.first().connect().isSuccess()
         }
     }
 
-    @Command(command = ["scanAndConnect"], description = "This will both scan and attempt to connect to the first returned device.")
+    @Command(
+        command = ["scanAndConnect"],
+        description = "This will both scan and attempt to connect to the first returned device."
+    )
     fun scanAndConnect() {
         println("starting cli scan")
         runBlocking {
@@ -74,7 +97,10 @@ class RadioCli {
         }
     }
 
-    @Command(command = ["blink"], description = "This will make the led blink on the radio.")
+    @Command(
+        command = ["blink"],
+        description = "This will make the led blink on the radio."
+    )
     fun blink() {
         println("Size of devices: ${devices.size}")
         runBlocking {
@@ -82,10 +108,13 @@ class RadioCli {
         }
     }
 
-    @Command(command = ["disconnect"], description = "This will disconnect all radio's")
+    @Command(
+        command = ["disconnect"],
+        description = "This will disconnect all radio's"
+    )
     fun disconnect() {
         runBlocking {
-            println("disconnecting devices, size of devices: ${devices?.size}")
+            println("disconnecting devices, size of devices: ${devices.size}")
             devices.forEach {
                 println("disconnecting ${it.serialNumber}")
                 it.disconnect()
@@ -93,7 +122,10 @@ class RadioCli {
         }
     }
 
-    @Command(command = ["power"], description = "This will set the power and bandwidth of the first radio.")
+    @Command(
+        command = ["power"],
+        description = "This will set the power and bandwidth of the first radio."
+    )
     fun setPowerAndBandwidth(
         @Option(longNames = ["powerLevel"], required = true)
         powerLevel: GTPowerLevel,
@@ -109,11 +141,25 @@ class RadioCli {
         }
     }
 
-    @Command(command = ["frequencies"], description = "This will set the frequencies of the first radio.")
+    @Command(
+        command = ["frequencies"],
+        description = "This will set the frequencies of the first radio."
+    )
     fun setFrequencies(
-        @Option(longNames = ["control"], required = true, description = "The frequency in hz of the control channels", arityMin = 1, arityMax = 3)
+        @Option(
+            longNames = ["control"],
+            required = true,
+            description = "The frequency in hz of the control channels",
+            arityMin = 1,
+            arityMax = 3
+        )
         controlChannelFrequenciesInHz: List<String>,
-        @Option(longNames = ["data"], description = "The frequency in hz of the data channels", arityMin = 1, arityMax = 13)
+        @Option(
+            longNames = ["data"],
+            description = "The frequency in hz of the data channels",
+            arityMin = 1,
+            arityMax = 13
+        )
         dataChannelFrequenciesInHz: List<String>
     ) {
         val channels = mutableListOf<GTFrequencyChannel>()
@@ -145,16 +191,19 @@ class RadioCli {
             return
         }
         runBlocking {
-            devices?.firstOrNull()?.setFrequencyChannels(
+            devices.firstOrNull()?.setFrequencyChannels(
                 channels
             )
         }
     }
 
-    @Command(command = ["listen"], description = "Subscribes to the events from the radio and outputs them to console.")
+    @Command(
+        command = ["listen"],
+        description = "Subscribes to the events from the radio and outputs them to console."
+    )
     fun listenToEvents() {
         CoroutineScope(Dispatchers.IO).launch {
-            devices?.firstOrNull()?.radioEvents?.collect {
+            devices.firstOrNull()?.radioEvents?.collect {
                 if (it.isSuccess()) {
                     println("Success: ${it.executedOrNull()}\n")
                 } else {
@@ -164,20 +213,26 @@ class RadioCli {
         }
     }
 
-    @Command(command = ["destination"], description = "Set the destination gid for 1-1 messages.")
+    @Command(
+        command = ["destination"],
+        description = "Set the destination gid for 1-1 messages."
+    )
     fun setDestinationGid(
         @Option(required = true)
         destination: Long) {
         this.destination = destination
     }
 
-    @Command(command = ["pli"], description = "Send a randomized pli message to the mesh.")
+    @Command(
+        command = ["pli"],
+        description = "Send a randomized pli message to the mesh."
+    )
     fun sendPli(
         @Option(longNames = ["unicast"], required = false)
         privateMessage: Boolean = false,
     ) {
         runBlocking {
-            devices?.firstOrNull()?.send(
+            devices.firstOrNull()?.send(
                 SendToNetwork.Location(
                     how = "m-g",
                     staleTime = 300,
@@ -189,12 +244,12 @@ class RadioCli {
                         messageType = if (privateMessage) GTMessageType.PRIVATE else GTMessageType.BROADCAST,
                         destinationGid = if (privateMessage) destination else 0,
                         isPeriodic = false,
-                        senderGid = devices?.firstOrNull()?.personalGid ?: 0
+                        senderGid = devices.firstOrNull()?.personalGid ?: 0
                     ),
                     commandHeader = GotennaHeaderWrapper(
                         messageTypeWrapper = MessageTypeWrapper.LOCATION,
                         recipientUUID = UUID.randomUUID().toString(),
-                        senderGid = devices?.firstOrNull()?.personalGid ?: 0,
+                        senderGid = devices.firstOrNull()?.personalGid ?: 0,
                         senderUUID = UUID.randomUUID().toString(),
                         senderCallsign = "testJVMuser",
                         uuid = UUID.randomUUID().toString()
@@ -233,10 +288,12 @@ class RadioCli {
         }
     }
 
-    fun sendGripFile(@Option(longNames = ["unicast"], required = false)
-                     privateMessage: Boolean = false,) {
+    fun sendGripFile(
+        @Option(longNames = ["unicast"], required = false)
+         privateMessage: Boolean = false,
+    ) {
         runBlocking {
-            devices?.firstOrNull()?.send(
+            devices.firstOrNull()?.send(
                 SendToNetwork.GripFile(
                     data = List(4096) { ('a'..'z').random() }.joinToString("").toByteArray(
                         Charset.defaultCharset()
@@ -248,12 +305,12 @@ class RadioCli {
                         messageType = if (privateMessage) GTMessageType.PRIVATE else GTMessageType.BROADCAST,
                         destinationGid = if (privateMessage) destination else 0,
                         isPeriodic = false,
-                        senderGid = devices?.firstOrNull()?.personalGid ?: 0
+                        senderGid = devices.firstOrNull()?.personalGid ?: 0
                     ),
                     commandHeader = GotennaHeaderWrapper(
                         messageTypeWrapper = MessageTypeWrapper.GRIP_FILE,
                         recipientUUID = UUID.randomUUID().toString(),
-                        senderGid = devices?.firstOrNull()?.personalGid ?: 0,
+                        senderGid = devices.firstOrNull()?.personalGid ?: 0,
                         senderUUID = UUID.randomUUID().toString(),
                         senderCallsign = "testJVMuser",
                         uuid = UUID.randomUUID().toString()
@@ -262,4 +319,5 @@ class RadioCli {
             )
         }
     }
+
 }
