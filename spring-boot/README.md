@@ -4,28 +4,21 @@
 
 ## Add the SDK to your project
 
-The Radio SDK is hosted on a private goTenna Artifactory. Setup up the repository in `build.gradle`
+The Radio SDK is hosted on a private goTenna Artifactory. The repository is set up in `settings.gradle.kts` and uses the credentials provided in the `local.properties` file. Provide your credentials there.
 
-```gradle
-repositories {
-    ...
-    maven {
-        url = uri("https://gotenna.jfrog.io/artifactory/android-libs-release-local")
-        name = "artifactory"
-        credentials {
-            username = "user@gotenna.com"
-            password = "superSecretPassword"
-        }
-    }
-}
+```
+# local.properties
+artifactory.user=<your username>
+artifactory.password=<your password>
 ```
 
-Then include the SDK in your dependencies
+The SDK is included in the app dependencies
 
 ```gradle
+// spring-boot/build.gradle.kts
 dependencies {
     ...
-    implementation("com.gotenna.sdk:radio-sdk-external-jvm:$sdkVersion")
+    implementation(libs.radioSdk)
 }
 ```
 
