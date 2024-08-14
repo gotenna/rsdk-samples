@@ -62,5 +62,5 @@ tasks.withType<Test> {
 tasks.withType<JavaExec> {
     val localProperties = gradleLocalProperties(rootDir)
     environment("SDK_TOKEN", localProperties.getProperty("sdk.token"))
-    environment("SDK_APPID", localProperties.getProperty("sdk.appid"))
+    environment("SDK_APP_ID", localProperties.getProperty("sdk.app.id"))
 }

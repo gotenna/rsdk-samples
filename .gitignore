@@ -35,3 +35,4 @@ common/build/*
 local.properties
 
 .kotlin
+local.properties

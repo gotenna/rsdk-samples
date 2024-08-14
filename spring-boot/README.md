@@ -8,8 +8,10 @@ The Radio SDK is hosted on a private goTenna Artifactory. The repository is set 
 
 ```
 # local.properties
-artifactory.user=<your username>
-artifactory.password=<your password>
+artifactory_user=<your username>
+artifactory_password=<your password>
+sdk_token=<your token>
+sdk_app_id=<your app id>
 ```
 
 The SDK is included in the app dependencies
