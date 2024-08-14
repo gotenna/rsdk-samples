@@ -36,10 +36,12 @@ class RadioCli {
 
     init {
         val token = System.getenv("SDK_TOKEN")
+        val appId = System.getenv("SDK_APP_ID")
 
         CoroutineScope(Dispatchers.IO).launch {
             GotennaClient.initialize(
                 sdkToken = token,
+                appId = appId,
                 preProcessAction = { bytes, encryptionParams, senderGid ->
                     // encrypt outgoing messages
                     /*
