@@ -2,6 +2,7 @@ package com.gotenna.spring.sample;
 
 
 import com.gotenna.radio.sdk.GotennaClient;
+import com.gotenna.radio.sdk.GotennaClientJvmExtKt;
 import com.gotenna.radio.sdk.common.models.CommandMetaData;
 import com.gotenna.radio.sdk.common.models.ConnectionType;
 import com.gotenna.radio.sdk.common.models.DeliveryResult;
