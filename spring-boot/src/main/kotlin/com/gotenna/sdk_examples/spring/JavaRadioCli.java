@@ -1,9 +1,9 @@
 package com.gotenna.sdk_examples.spring;
 
-
-import com.gotenna.common.models.EncryptionParameters;
-import com.gotenna.common.models.GotennaHeaderWrapper;
 import com.gotenna.radio.sdk.GotennaClient;
+import com.gotenna.radio.sdk.common.models.EncryptionParameters;
+import com.gotenna.radio.sdk.common.models.GotennaHeaderWrapper;
+
 import org.jetbrains.annotations.NotNull;
 
 import kotlin.coroutines.Continuation;
@@ -51,6 +51,7 @@ public class JavaRadioCli {
 
         GotennaClient.INSTANCE.initialize(
             "sdkToken",
+            "appId",
             preProcessAction,
             postProcessAction,
             false,
