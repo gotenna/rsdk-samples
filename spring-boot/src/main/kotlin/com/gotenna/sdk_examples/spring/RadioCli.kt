@@ -1,18 +1,18 @@
 package com.gotenna.sdk_examples.spring
 
-import com.gotenna.common.models.CommandMetaData
-import com.gotenna.common.models.Coordinate
-import com.gotenna.common.models.GTMessageType
-import com.gotenna.common.models.GotennaHeaderWrapper
-import com.gotenna.common.models.MapObject
-import com.gotenna.common.models.MessageTypeWrapper
-import com.gotenna.common.models.SendToNetwork
 import com.gotenna.radio.sdk.GotennaClient
 import com.gotenna.radio.sdk.common.configuration.GTBandwidth
 import com.gotenna.radio.sdk.common.configuration.GTFrequencyChannel
 import com.gotenna.radio.sdk.common.configuration.GTPowerLevel
+import com.gotenna.radio.sdk.common.models.CommandMetaData
 import com.gotenna.radio.sdk.common.models.ConnectionType
+import com.gotenna.radio.sdk.common.models.Coordinate
+import com.gotenna.radio.sdk.common.models.GTMessageType
+import com.gotenna.radio.sdk.common.models.GotennaHeaderWrapper
+import com.gotenna.radio.sdk.common.models.MapObject
+import com.gotenna.radio.sdk.common.models.MessageTypeWrapper
 import com.gotenna.radio.sdk.common.models.RadioModel
+import com.gotenna.radio.sdk.common.models.SendToNetwork
 import com.gotenna.radio.sdk.utils.executedOrNull
 import com.gotenna.radio.sdk.utils.getErrorOrNull
 import com.gotenna.radio.sdk.utils.isSuccess
