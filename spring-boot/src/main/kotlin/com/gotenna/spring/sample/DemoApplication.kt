@@ -1,4 +1,4 @@
-package com.gotenna.sdk_examples.spring
+package com.gotenna.spring.sample
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

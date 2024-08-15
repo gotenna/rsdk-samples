@@ -1,4 +1,4 @@
-package com.gotenna.sdk_examples.spring;
+package com.gotenna.spring.sample;
 
 
 import com.gotenna.radio.sdk.GotennaClient;
