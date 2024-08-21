@@ -108,10 +108,19 @@ public class JavaRadioCli {
             }
         });
 
-        javaAdapter.collectRadioEvents(new EventsCallback() {
+         javaAdapter.collectRadioEvents(new EventsCallback() {
             @Override
             public void onEvent(@NotNull RadioResult<RadioCommand> result) {
                 System.out.println("New radio event " + result);
+                if(result instanceof RadioResult.Success<RadioCommand>) {
+                    final RadioCommand executed = ((RadioResult.Success<RadioCommand>) result).getExecuted();
+                    if(executed instanceof SendToNetwork.Location location) {
+                        final double lat = location.getLat();
+                        final double lon = location.getLong();
+                    } else if(executed instanceof SendToNetwork.AnyNetworkMessage anyNetworkMessage) {
+                        
+                    }
+                }
             }
         });
 
