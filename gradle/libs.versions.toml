@@ -2,12 +2,14 @@
 radio-sdk = "3.0.91"
 agp = "8.1.4"
 kotlin = "2.0.0"
+kotlinx-serialization = "1.7.0"
 artifactory = "4.32.0"
 dokka = "1.9.20"
 org-jetbrains-kotlin-jvm = "1.9.23"
 
 [libraries]
 radioSdk = { module = "com.gotenna.sdk:radio-sdk-external-jvm", version.ref = "radio-sdk" }
+kotlinx-serialization-protobuf-jvm = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf-jvm", version.ref = "kotlinx-serialization" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

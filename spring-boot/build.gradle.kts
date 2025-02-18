@@ -47,6 +47,7 @@ dependencies {
     implementation("org.usb4java:usb4java-javax:1.3.0")
 
     implementation(libs.radioSdk)
+    implementation(libs.kotlinx.serialization.protobuf.jvm)
 }
 
 dependencyManagement {
