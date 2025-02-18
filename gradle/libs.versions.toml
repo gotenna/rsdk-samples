@@ -1,5 +1,5 @@
 [versions]
-radio-sdk = "3.0.32"
+radio-sdk = "3.0.91"
 agp = "8.1.4"
 kotlin = "2.0.0"
 artifactory = "4.32.0"
