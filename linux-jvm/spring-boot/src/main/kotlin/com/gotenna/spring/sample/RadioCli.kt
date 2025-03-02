@@ -23,8 +23,8 @@ import kotlinx.coroutines.runBlocking
 import org.springframework.shell.command.annotation.Command
 import org.springframework.shell.command.annotation.Option
 import org.springframework.shell.standard.ShellCommandGroup
-import java.nio.charset.Charset
-import java.util.UUID
+import java.io.File
+import java.util.*
 import kotlin.random.Random
 
 @Command(command = ["radio"])
@@ -35,12 +35,14 @@ class RadioCli {
     private var destination: Long = 0L
 
     init {
-        val token = System.getenv("SDK_TOKEN")
-        val appId = System.getenv("SDK_APP_ID")
+        // Loads the SDK token and app id from local.properties. You can hard code it but this way it is safer.
+        val localProperties = loadLocalProperties(File(System.getProperty("user.dir")))
+        val sdkToken = localProperties.getProperty("sdk.token")
+        val appId = localProperties.getProperty("sdk.app.id")
 
         CoroutineScope(Dispatchers.IO).launch {
             GotennaClient.initialize(
-                sdkToken = token,
+                sdkToken = sdkToken,
                 appId = appId,
                 preProcessAction = { bytes, encryptionParams, senderGid ->
                     // encrypt outgoing messages
@@ -61,6 +63,19 @@ class RadioCli {
                 enableDebugLogs = true
             )
         }
+    }
+
+    /**
+     * Helper to load the local properties from the root directory. This is for project configuration and you don't
+     * need to do this in your application unless you want a safer way to store local.properties.
+     */
+    private fun loadLocalProperties(rootDir: File): Properties {
+        val properties = Properties()
+        val localPropertiesFile = File(rootDir, "local.properties")
+        if (localPropertiesFile.exists()) {
+            properties.load(localPropertiesFile.inputStream())
+        }
+        return properties
     }
 
     @Command(
@@ -285,38 +300,6 @@ class RadioCli {
                         ),
                         radius = 1000.0
                     )
-                )
-            )
-        }
-    }
-
-    fun sendGripFile(
-        @Option(longNames = ["unicast"], required = false)
-         privateMessage: Boolean = false,
-    ) {
-        runBlocking {
-            devices.firstOrNull()?.send(
-                SendToNetwork.GripFile(
-                    data = List(4096) { ('a'..'z').random() }.joinToString("").toByteArray(
-                        Charset.defaultCharset()
-                    ), // 4kb size file
-                    fileName = "testfile.txt",
-                    numberOfSegments = 0,
-                    partialData = false,
-                    commandMetaData = CommandMetaData(
-                        messageType = if (privateMessage) GTMessageType.PRIVATE else GTMessageType.BROADCAST,
-                        destinationGid = if (privateMessage) destination else 0,
-                        isPeriodic = false,
-                        senderGid = devices.firstOrNull()?.personalGid ?: 0
-                    ),
-                    commandHeader = GotennaHeaderWrapper(
-                        messageTypeWrapper = MessageTypeWrapper.GRIP_FILE,
-                        recipientUUID = UUID.randomUUID().toString(),
-                        senderGid = devices.firstOrNull()?.personalGid ?: 0,
-                        senderUUID = UUID.randomUUID().toString(),
-                        senderCallsign = "testJVMuser",
-                        uuid = UUID.randomUUID().toString()
-                    ),
                 )
             )
         }
