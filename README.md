@@ -1,7 +1,7 @@
 # RSDK - Radio SDK
 
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue)](https://github.com/yourrepo/releases)
-[![Test Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)](https://ci.example.com/testcoverage)
+[![Version](https://img.shields.io/badge/Version-3.0.91-blue)](https://github.com/yourrepo/releases)
+<!-- [![Test Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)](https://ci.example.com/testcoverage) -->
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://ci.example.com/buildstatus)
 
 RSDK is a robust and efficient SDK designed to handle everything related to radio connections. This sample project demonstrates its capabilities across multiple platforms.
