@@ -11,7 +11,6 @@ RSDK is a robust and efficient SDK designed to handle everything related to radi
 ## Table of Contents
 
 - [Overview](#overview)
-- [Current Version](#current-version)
 - [Packages](#packages)
   - [Android Sample](#android-sample)
   - [iOS Sample](#ios-sample)
@@ -23,14 +22,6 @@ RSDK is a robust and efficient SDK designed to handle everything related to radi
 ## Overview
 
 RSDK provides a seamless and reliable way to manage radio connections. With cross-platform support, you can integrate it in your Android, iOS, or Linux JVM projects with ease. Our modular architecture and extensive testing ensure that your applications remain stable and high-performing.
-
----
-
-## Current Version
-
-![RSDK Logo](https://via.placeholder.com/300x80.png?text=RSDK+Logo)
-
-**Version:** 3.0.91  
 
 ---
 
@@ -56,7 +47,5 @@ Our commitment to quality is reflected in our comprehensive testing:
 
 - **Number of Tests:** 600
 - **Build Status:** Passing
-
-For detailed test reports, please check our [CI/CD results](https://ci.example.com/yourrepo).
 
 To run tests locally:
