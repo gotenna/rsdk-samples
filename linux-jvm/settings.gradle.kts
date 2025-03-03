@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "sdk-examples"
+rootProject.name = "linux-jvm"
 include(":spring-boot")
 
 pluginManagement {

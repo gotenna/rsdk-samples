@@ -18,14 +18,3 @@ buildscript {
         classpath("org.jetbrains.kotlinx:atomicfu-gradle-plugin:0.24.0")
     }
 }
-
-//apply(plugin = "kotlinx-atomicfu")
-//dependencies {
-//    implementation(kotlin("stdlib-jdk8"))
-//}
-//repositories {
-//    mavenCentral()
-//}
-//kotlin {
-//    jvmToolchain(8)
-//}

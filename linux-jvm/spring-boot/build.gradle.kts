@@ -43,11 +43,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.usb4java:usb4java-javax:1.3.0")
 
     implementation(libs.radioSdk)
     implementation(libs.kotlinx.serialization.protobuf.jvm)
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 dependencyManagement {
@@ -58,10 +59,4 @@ dependencyManagement {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-tasks.withType<JavaExec> {
-    val localProperties = gradleLocalProperties(rootDir)
-    environment("SDK_TOKEN", localProperties.getProperty("sdk.token"))
-    environment("SDK_APP_ID", localProperties.getProperty("sdk.app.id"))
 }
