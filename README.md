@@ -45,7 +45,5 @@ A demonstration project for using RSDK in a Linux environment via the JVM.
 
 Our commitment to quality is reflected in our comprehensive testing:
 
-- **Number of Tests:** 600
+- **Number of Tests:** 700
 - **Build Status:** Passing
-
-To run tests locally:
