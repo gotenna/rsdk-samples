@@ -1,6 +1,6 @@
 # RSDK - Radio SDK
 
-[![Version](https://img.shields.io/badge/Version-3.0.91-blue)](https://github.com/yourrepo/releases)
+[![Version](https://img.shields.io/badge/Version-3.1.12-blue)](https://github.com/yourrepo/releases)
 <!-- [![Test Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)](https://ci.example.com/testcoverage) -->
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://ci.example.com/buildstatus)
 
