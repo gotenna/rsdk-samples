@@ -1,5 +1,5 @@
 [versions]
-radio-sdk = "3.0.91"
+radio-sdk = "3.1.12"
 agp = "8.1.4"
 kotlin = "2.0.0"
 kotlinx-serialization = "1.7.0"
