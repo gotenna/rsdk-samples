@@ -20,8 +20,8 @@ class ViewController: UIViewController {
         Task {
             do {
                 let initialized = try await GotennaClient.shared.initialize(
-                    sdkToken: "3a0433fe7e2671adb4cd7d87851d189f88bd23e82ab06013201642b868b02c8a",
-                    appId: "fcde",
+                    sdkToken: "<#YOUR_SDK_TOKEN#>",
+                    appId: "<#YOUR_APP_ID#>",
                     preProcessAction: nil,
                     postProcessAction: nil,
                     enableDebugLogs: true

@@ -6,11 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		51EDF5382D9B2CC7007B2921 /* RSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EDF5372D9B2CC7007B2921 /* RSDK.xcframework */; };
-		51EDF5392D9B2CC7007B2921 /* RSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 51EDF5372D9B2CC7007B2921 /* RSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-/* End PBXBuildFile section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		519F04E12CB0917300F6790A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -18,7 +13,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				51EDF5392D9B2CC7007B2921 /* RSDK.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -27,7 +21,6 @@
 
 /* Begin PBXFileReference section */
 		5199F32C2CA475FC00AF77CC /* ios-sample-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-sample-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		51EDF5372D9B2CC7007B2921 /* RSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RSDK.xcframework; path = "../../ios-sample-app/RSDK.xcframework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -56,7 +49,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51EDF5382D9B2CC7007B2921 /* RSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +75,6 @@
 		5199F3442CA476BD00AF77CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				51EDF5372D9B2CC7007B2921 /* RSDK.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
