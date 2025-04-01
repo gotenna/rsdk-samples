@@ -40,15 +40,13 @@ class ViewController: UIViewController {
                     updateUIState(.scanning)
                     let radios = try await GotennaClient.shared.scan(connectionType: ConnectionType.ble, address: nil)
                     activeRadio = radios.first
+                    startObservingRadioState()
                     try await activeRadio?.connect()
                     updateUIState(.connected)
-                    radioConnectionState = .connected
-                    startObservingRadioState()
                     startObservingRadioEvents()
                 } else {
                     try await activeRadio?.disconnect()
                     updateUIState(.disconnected)
-                    radioConnectionState = .disconnected
                 }
             } catch {
                 print("Error scanning/connecting: \(error)")
@@ -144,8 +142,9 @@ class ViewController: UIViewController {
     
     private func startObservingRadioState() {
         Task {
-            try await activeRadio?.radioState.collect(collector: Collector<RadioState>(callback: { newState in
+            try await activeRadio?.radioState.collect(collector: Collector<RadioState>(callback: { [weak self] newState in
                 print("Radio state changed to: \(newState)")
+                self?.radioConnectionState = newState
             }))
         }
     }
