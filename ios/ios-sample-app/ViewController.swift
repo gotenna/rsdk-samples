@@ -50,22 +50,22 @@ class ViewController: UIViewController {
                 altitude: 237.21325546763973,
                 team: "CYAN",
                 accuracy: 11,
-                creationTime: 1718745135755,
+                creationTime: Date().millisecondsSinceEpoch,
                 messageId: 0,
                 commandMetaData: CommandMetaData(
                     messageType: GTMessageType.broadcast,
                     destinationGid: 0,
                     isPeriodic: false,
                     priority: GTMessagePriority.normal,
-                    senderGid: 904610228241489
+                    senderGid: activeRadio?.personalGid ?? 0
                 ),
                 commandHeader: GotennaHeaderWrapper(
-                    timeStamp: 1718745135761,
+                    timeStamp: Date().millisecondsSinceEpoch,
                     messageTypeWrapper: MessageTypeWrapper.location,
                     recipientUUID: "",
                     appCode: 0,
-                    senderGid: 904610228241489,
-                    senderUUID: "ANDROID-2440142b8ac6d5d7",
+                    senderGid: activeRadio?.personalGid ?? 0,
+                    senderUUID: "4031c2e4-fff0-4a22-a490-1f4ae72c5c96",
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
                     uuid: ""
@@ -80,6 +80,40 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sendChatMessageButtonTapped(_ sender: UIButton) {
+        Task {
+            let chatMessage = SendToNetwork.ChatMessage(
+                text: "hello world",
+                chatId: 1234,
+                chatMessageId: "msgId",
+                conversationId: nil,
+                conversationName: nil,
+                creationTime: Date().millisecondsSinceEpoch,
+                messageId: 1234,
+                commandMetaData: CommandMetaData(
+                    messageType: GTMessageType.broadcast,
+                    destinationGid: 0,
+                    isPeriodic: false,
+                    priority: GTMessagePriority.normal,
+                    senderGid: activeRadio?.personalGid ?? 0
+                ),
+                commandHeader: GotennaHeaderWrapper(
+                    timeStamp: Date().millisecondsSinceEpoch,
+                    messageTypeWrapper: MessageTypeWrapper.chatMessage,
+                    recipientUUID: "",
+                    appCode: 0,
+                    senderGid: activeRadio?.personalGid ?? 0,
+                    senderUUID: "4031c2e4-fff0-4a22-a490-1f4ae72c5c96",
+                    senderCallsign: "JONAS",
+                    encryptionParameters: nil,
+                    uuid: ""
+                ),
+                gripResult: GripResultUnknown(),
+                _bytes: nil,
+                sequenceId: -1
+            )
+            
+            try await activeRadio?.send(model: chatMessage)
+        }
     }
     
     @IBAction func blinkLedButtonTapped(_ sender: UIButton) {
@@ -107,3 +141,12 @@ class ViewController: UIViewController {
     }
     
 }
+
+extension Date {
+    var millisecondsSinceEpoch: Int64 {
+        let seconds = self.timeIntervalSince1970
+        let milliseconds = seconds * 1000.0
+        return Int64(milliseconds)
+    }
+}
+
