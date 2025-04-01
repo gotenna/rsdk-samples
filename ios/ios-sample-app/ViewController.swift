@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     @IBAction func sendLocationButtonTapped(_ sender: UIButton) {
         Task {
             let location = SendToNetwork.Location(
-                how: "h-e",
+                how: "m-g",
                 staleTime: 60,
                 lat: 35.291802,
                 long: 80.846604,
@@ -65,10 +65,10 @@ class ViewController: UIViewController {
                     recipientUUID: "",
                     appCode: 0,
                     senderGid: activeRadio?.personalGid ?? 0,
-                    senderUUID: "4031c2e4-fff0-4a22-a490-1f4ae72c5c96",
+                    senderUUID: UUID().uuidString,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
-                    uuid: ""
+                    uuid: UUID().uuidString
                 ),
                 gripResult: GripResultUnknown(),
                 _bytes: nil,
@@ -102,10 +102,10 @@ class ViewController: UIViewController {
                     recipientUUID: "",
                     appCode: 0,
                     senderGid: activeRadio?.personalGid ?? 0,
-                    senderUUID: "4031c2e4-fff0-4a22-a490-1f4ae72c5c96",
+                    senderUUID: UUID().uuidString,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
-                    uuid: ""
+                    uuid: UUID().uuidString
                 ),
                 gripResult: GripResultUnknown(),
                 _bytes: nil,
@@ -145,7 +145,7 @@ class ViewController: UIViewController {
 extension Date {
     var millisecondsSinceEpoch: Int64 {
         let seconds = self.timeIntervalSince1970
-        let milliseconds = seconds * 1000.0
+        let milliseconds = seconds * 1000
         return Int64(milliseconds)
     }
 }
