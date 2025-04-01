@@ -1,0 +1,108 @@
+# .gitignore for Xcode projects (iOS, macOS, watchOS, tvOS)
+
+## General
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+*.Spotlight-*
+.Trashes
+
+# Thumbnail cache files
+Thumbs.db
+ehthumbs.db
+
+## Build generated
+build/
+DerivedData/
+*.o
+*.lo
+*.la
+*.app
+*.ipa
+*.dSYM/
+*.framework # Ignore built frameworks if not intended for distribution via Git
+
+## Xcode User Settings
+# Ignore all contents of xcuserdata (breakpoints, user schemes, states, etc.)
+*.xcodeproj/*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+
+# User specific schemes should be gitignored unless explicitly shared
+# Commit xcshareddata/xcschemes/ instead
+*.xcscheme
+
+# Avoid committing project files backup created by Xcode when correcting conflicts
+*.xcodeproj/project.pbxproj.*.orig
+
+# Local settings
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.pbxuser
+*.moved-aside
+
+# Workspace settings
+*.xcsettings
+
+## Swift Package Manager
+# Build artifacts and local cache
+.build/
+.swiftpm/
+
+# Package.resolved should generally be committed unless you have specific reasons not to.
+# It ensures repeatable builds across environments.
+# If you want to ignore it, uncomment the following line:
+# Package.resolved
+
+## CocoaPods
+# We recommend committing the Pods directory to ensure reproducible builds.
+# Add the following line if you absolutely want to ignore the Pods directory
+# and rely solely on `pod install` with the `Podfile.lock`.
+# Pods/
+
+# Cached pod downloads, etc.
+# ~/.cocoapods/repos/ # Usually outside project, but good to know
+
+## Carthage
+# Build artifacts
+Carthage/Build/
+
+# Checkouts should generally be committed unless you want to download them each time.
+# If you want to ignore checkouts, uncomment the following line:
+# Carthage/Checkouts/
+
+## Fastlane (optional)
+# Uncomment if you use Fastlane and want to ignore generated files
+# fastlane/report.xml
+# fastlane/Preview.html
+# fastlane/screenshots/
+# fastlane/test_output/
+# fastlane/logs/
+
+## Testing & Coverage
+*.gcno
+*.gcda
+*.profraw
+*.lcov
+*.profdata
+TestResults/
+CodeCoverage/
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+## Swift Playgrounds App specific
+*.swiftpm
+*.playgroundbook
+
+## Secrets / Environment Variables (Add your specific files)
+# Never commit sensitive data!
+# .env
+# Secrets.xcconfig
+# keys.plist
+
+# End of File

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ios_sample_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3m-FY-lIW">
+                                <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="r4c-ei-k5b"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Scan &amp; Connect" cornerStyle="fixed">
+                                    <backgroundConfiguration key="background" cornerRadius="0.0">
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="scanButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PmO-Ca-YZ5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVm-bu-N6t">
+                                <rect key="frame" x="0.0" y="421" width="393" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send Location"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="di4-u6-KuJ">
+                                <rect key="frame" x="0.0" y="464" width="393" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send Chat Message"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRY-Pe-eRL">
+                                <rect key="frame" x="0.0" y="507" width="393" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Blink LED"/>
+                                <connections>
+                                    <action selector="blinkLedButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4pj-11-q0v"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="height" secondItem="di4-u6-KuJ" secondAttribute="height" id="1mC-6B-5If"/>
+                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="trailing" secondItem="di4-u6-KuJ" secondAttribute="trailing" id="7CR-vm-btv"/>
+                            <constraint firstItem="di4-u6-KuJ" firstAttribute="leading" secondItem="HVm-bu-N6t" secondAttribute="leading" id="Huv-R5-ph2"/>
+                            <constraint firstItem="HVm-bu-N6t" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Q0w-WT-sBs"/>
+                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="leading" secondItem="di4-u6-KuJ" secondAttribute="leading" id="Sj1-XP-HcU"/>
+                            <constraint firstItem="HVm-bu-N6t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TDI-Xl-4Jp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="f3m-FY-lIW" secondAttribute="bottom" id="a8G-EV-zx3"/>
+                            <constraint firstItem="f3m-FY-lIW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eBs-Rw-CrK"/>
+                            <constraint firstItem="di4-u6-KuJ" firstAttribute="trailing" secondItem="HVm-bu-N6t" secondAttribute="trailing" id="h3b-OR-byr"/>
+                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="top" secondItem="di4-u6-KuJ" secondAttribute="bottom" constant="8" symbolic="YES" id="hJg-MK-sFG"/>
+                            <constraint firstItem="di4-u6-KuJ" firstAttribute="height" secondItem="HVm-bu-N6t" secondAttribute="height" id="lyq-Ns-rqX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HVm-bu-N6t" secondAttribute="trailing" id="tDq-WH-ZE3"/>
+                            <constraint firstItem="di4-u6-KuJ" firstAttribute="top" secondItem="HVm-bu-N6t" secondAttribute="bottom" constant="8" symbolic="YES" id="w0W-57-psD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="f3m-FY-lIW" secondAttribute="trailing" id="zQn-J6-O4p"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="blinkLedButton" destination="fRY-Pe-eRL" id="Vpg-ow-omy"/>
+                        <outlet property="scanConnectDisconnectButton" destination="f3m-FY-lIW" id="Fk3-ow-PSU"/>
+                        <outlet property="sendChatMessageButton" destination="di4-u6-KuJ" id="blu-1W-CaR"/>
+                        <outlet property="sendLocationButton" destination="HVm-bu-N6t" id="830-df-mUN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="127" y="-27"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
