@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        handleDisconnected()
+        updateUIState(.disconnected)
         
         Task {
             do {
@@ -29,11 +29,12 @@ class ViewController: UIViewController {
     @IBAction func scanButtonTapped(_ sender: UIButton) {
         Task {
             do {
+                updateUIState(.scanning)
                 let radios = try await GotennaClient.shared.scan(connectionType: ConnectionType.ble, address: nil)
                 print("got num radios: \(radios.count)")
                 self.activeRadio = radios.first
                 try await self.activeRadio?.connect()
-                self.handleConnected()
+                self.updateUIState(.connected)
             } catch {
                 print("caught error")
             }
@@ -47,7 +48,7 @@ class ViewController: UIViewController {
                 staleTime: 60,
                 lat: 35.291802,
                 long: 80.846604,
-                altitude: 237.21325546763973,
+                altitude: 0.0,
                 team: "CYAN",
                 accuracy: 11,
                 creationTime: Date().millisecondsSinceEpoch,
@@ -126,11 +127,23 @@ class ViewController: UIViewController {
         }
     }
     
+    private func updateUIState(_ state: UIState) {
+        switch state {
+        case .scanning:
+            handleScanning()
+        case .connected:
+            handleConnected()
+        case .disconnected:
+            handleDisconnected()
+        }
+    }
+    
     private func handleDisconnected() {
         sendLocationButton.isHidden = true
         sendChatMessageButton.isHidden = true
         blinkLedButton.isHidden = true
         scanConnectDisconnectButton.setTitle("Scan & Connect", for: .normal)
+        scanConnectDisconnectButton.isEnabled = true
     }
     
     private func handleConnected() {
@@ -138,8 +151,23 @@ class ViewController: UIViewController {
         sendChatMessageButton.isHidden = false
         blinkLedButton.isHidden = false
         scanConnectDisconnectButton.setTitle("Disconnect", for: .normal)
+        scanConnectDisconnectButton.isEnabled = true
     }
     
+    private func handleScanning() {
+        sendLocationButton.isHidden = true
+        sendChatMessageButton.isHidden = true
+        blinkLedButton.isHidden = true
+        scanConnectDisconnectButton.setTitle("Scanning...", for: .normal)
+        scanConnectDisconnectButton.isEnabled = false
+    }
+    
+}
+
+enum UIState {
+    case scanning
+    case connected
+    case disconnected
 }
 
 extension Date {
