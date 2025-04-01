@@ -41,6 +41,42 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sendLocationButtonTapped(_ sender: UIButton) {
+        Task {
+            let location = SendToNetwork.Location(
+                how: "h-e",
+                staleTime: 60,
+                lat: 35.291802,
+                long: 80.846604,
+                altitude: 237.21325546763973,
+                team: "CYAN",
+                accuracy: 11,
+                creationTime: 1718745135755,
+                messageId: 0,
+                commandMetaData: CommandMetaData(
+                    messageType: GTMessageType.broadcast,
+                    destinationGid: 0,
+                    isPeriodic: false,
+                    priority: GTMessagePriority.normal,
+                    senderGid: 904610228241489
+                ),
+                commandHeader: GotennaHeaderWrapper(
+                    timeStamp: 1718745135761,
+                    messageTypeWrapper: MessageTypeWrapper.location,
+                    recipientUUID: "",
+                    appCode: 0,
+                    senderGid: 904610228241489,
+                    senderUUID: "ANDROID-2440142b8ac6d5d7",
+                    senderCallsign: "JONAS",
+                    encryptionParameters: nil,
+                    uuid: ""
+                ),
+                gripResult: GripResultUnknown(),
+                _bytes: nil,
+                sequenceId: -1
+            )
+
+             try await activeRadio?.send(model: location)
+        }
     }
     
     @IBAction func sendChatMessageButtonTapped(_ sender: UIButton) {
