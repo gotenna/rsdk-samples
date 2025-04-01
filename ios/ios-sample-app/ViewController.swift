@@ -10,6 +10,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var blinkLedButton: UIButton!
     
     private var activeRadio: RadioModel?
+    private var radioConnectionState = RadioState.disconnected
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +36,20 @@ class ViewController: UIViewController {
     @IBAction func scanButtonTapped(_ sender: UIButton) {
         Task {
             do {
-                updateUIState(.scanning)
-                let radios = try await GotennaClient.shared.scan(connectionType: ConnectionType.ble, address: nil)
-                self.activeRadio = radios.first
-                try await self.activeRadio?.connect()
-                self.updateUIState(.connected)
-                startObservingRadioState()
+                if radioConnectionState == .disconnected {
+                    updateUIState(.scanning)
+                    let radios = try await GotennaClient.shared.scan(connectionType: ConnectionType.ble, address: nil)
+                    activeRadio = radios.first
+                    try await activeRadio?.connect()
+                    updateUIState(.connected)
+                    radioConnectionState = .connected
+                    startObservingRadioState()
+                    startObservingRadioEvents()
+                } else {
+                    try await activeRadio?.disconnect()
+                    updateUIState(.disconnected)
+                    radioConnectionState = .disconnected
+                }
             } catch {
                 print("Error scanning/connecting: \(error)")
             }
@@ -89,7 +98,7 @@ class ViewController: UIViewController {
     @IBAction func sendChatMessageButtonTapped(_ sender: UIButton) {
         Task {
             let chatMessage = SendToNetwork.ChatMessage(
-                text: "hello world",
+                text: "Hello World",
                 chatId: 1234,
                 chatMessageId: "msgId",
                 conversationId: nil,
@@ -137,6 +146,19 @@ class ViewController: UIViewController {
         Task {
             try await activeRadio?.radioState.collect(collector: Collector<RadioState>(callback: { newState in
                 print("Radio state changed to: \(newState)")
+            }))
+        }
+    }
+    
+    private func startObservingRadioEvents() {
+        Task {
+            try await activeRadio?.radioEvents.collect(collector: Collector<RadioResult>(callback: { radioResult in
+                if radioResult is RadioResultFailure<RadioCommand> { print("Got failure") }
+                guard let success = radioResult as? RadioResultSuccess<RadioCommand>, let executed = success.executed else {
+                    print("Unexpected radio result: \(radioResult)\n\n")
+                    return
+                }
+                print("Got event from radio: \(executed)")
             }))
         }
     }
