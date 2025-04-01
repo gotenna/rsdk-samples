@@ -18,10 +18,16 @@ class ViewController: UIViewController {
         
         Task {
             do {
-                let initialized = try await GotennaClient.shared.initialize(sdkToken: "3a0433fe7e2671adb4cd7d87851d189f88bd23e82ab06013201642b868b02c8a", appId: "fcde", preProcessAction: nil, postProcessAction: nil, enableDebugLogs: true)
-                print("initialized: \(initialized)")
+                let initialized = try await GotennaClient.shared.initialize(
+                    sdkToken: "3a0433fe7e2671adb4cd7d87851d189f88bd23e82ab06013201642b868b02c8a",
+                    appId: "fcde",
+                    preProcessAction: nil,
+                    postProcessAction: nil,
+                    enableDebugLogs: true
+                )
+                print("Initialized: \(initialized)")
             } catch {
-                print("caught error initializing")
+                print("Error initializing: \(error)")
             }
         }
     }
@@ -31,12 +37,12 @@ class ViewController: UIViewController {
             do {
                 updateUIState(.scanning)
                 let radios = try await GotennaClient.shared.scan(connectionType: ConnectionType.ble, address: nil)
-                print("got num radios: \(radios.count)")
                 self.activeRadio = radios.first
                 try await self.activeRadio?.connect()
                 self.updateUIState(.connected)
+                startObservingRadioState()
             } catch {
-                print("caught error")
+                print("Error scanning/connecting: \(error)")
             }
         }
     }
@@ -127,6 +133,14 @@ class ViewController: UIViewController {
         }
     }
     
+    private func startObservingRadioState() {
+        Task {
+            try await activeRadio?.radioState.collect(collector: Collector<RadioState>(callback: { newState in
+                print("Radio state changed to: \(newState)")
+            }))
+        }
+    }
+    
     private func updateUIState(_ state: UIState) {
         switch state {
         case .scanning:
@@ -177,4 +191,3 @@ extension Date {
         return Int64(milliseconds)
     }
 }
-
