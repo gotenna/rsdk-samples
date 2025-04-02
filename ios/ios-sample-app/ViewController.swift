@@ -6,12 +6,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var scanConnectDisconnectButton: UIButton!
     @IBOutlet weak var sendLocationButton: UIButton!
-    @IBOutlet weak var sendChatMessageButton: UIButton!
+    @IBOutlet weak var sendBroadcastChatButton: UIButton!
+    @IBOutlet weak var sendPrivateChatButton: UIButton!
     @IBOutlet weak var blinkLedButton: UIButton!
     
     private var activeRadio: RadioModel?
     private var radioConnectionState = RadioState.disconnected
     private let senderUuid = UUID().uuidString
+    private let johnUuid = UUID().uuidString
+    private let johnGid = Int64(90164571133865)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,12 +97,12 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func sendChatMessageButtonTapped(_ sender: UIButton) {
+    @IBAction func sendBroadcastChatTapped(_ sender: UIButton) {
         Task {
             let chatMessage = SendToNetwork.ChatMessage(
                 text: "Hello World",
                 chatId: 1234,
-                chatMessageId: "msgId",
+                chatMessageId: UUID().uuidString,
                 conversationId: nil,
                 conversationName: nil,
                 creationTime: Date().millisecondsSinceEpoch,
@@ -115,6 +118,43 @@ class ViewController: UIViewController {
                     timeStamp: Date().millisecondsSinceEpoch,
                     messageTypeWrapper: MessageTypeWrapper.chatMessage,
                     recipientUUID: "",
+                    appCode: 0,
+                    senderGid: activeRadio?.personalGid ?? 0,
+                    senderUUID: senderUuid,
+                    senderCallsign: "JONAS",
+                    encryptionParameters: nil,
+                    uuid: UUID().uuidString
+                ),
+                gripResult: GripResultUnknown(),
+                _bytes: nil,
+                sequenceId: -1
+            )
+            
+            try await activeRadio?.send(model: chatMessage)
+        }
+    }
+    
+    @IBAction func sendPrivateChatTapped(_ sender: UIButton) {
+        Task {
+            let chatMessage = SendToNetwork.ChatMessage(
+                text: "Hello JOHN",
+                chatId: 1234,
+                chatMessageId: UUID().uuidString,
+                conversationId: johnUuid,
+                conversationName: "JOHN",
+                creationTime: Date().millisecondsSinceEpoch,
+                messageId: 1234,
+                commandMetaData: CommandMetaData(
+                    messageType: GTMessageType.private_,
+                    destinationGid: johnGid,
+                    isPeriodic: false,
+                    priority: GTMessagePriority.normal,
+                    senderGid: activeRadio?.personalGid ?? 0
+                ),
+                commandHeader: GotennaHeaderWrapper(
+                    timeStamp: Date().millisecondsSinceEpoch,
+                    messageTypeWrapper: MessageTypeWrapper.chatMessage,
+                    recipientUUID: johnUuid,
                     appCode: 0,
                     senderGid: activeRadio?.personalGid ?? 0,
                     senderUUID: senderUuid,
@@ -176,7 +216,8 @@ class ViewController: UIViewController {
     
     private func handleDisconnected() {
         sendLocationButton.isHidden = true
-        sendChatMessageButton.isHidden = true
+        sendBroadcastChatButton.isHidden = true
+        sendPrivateChatButton.isHidden = true
         blinkLedButton.isHidden = true
         scanConnectDisconnectButton.setTitle("Scan & Connect", for: .normal)
         scanConnectDisconnectButton.isEnabled = true
@@ -184,7 +225,8 @@ class ViewController: UIViewController {
     
     private func handleConnected() {
         sendLocationButton.isHidden = false
-        sendChatMessageButton.isHidden = false
+        sendBroadcastChatButton.isHidden = false
+        sendPrivateChatButton.isHidden = false
         blinkLedButton.isHidden = false
         scanConnectDisconnectButton.setTitle("Disconnect", for: .normal)
         scanConnectDisconnectButton.isEnabled = true
@@ -192,7 +234,8 @@ class ViewController: UIViewController {
     
     private func handleScanning() {
         sendLocationButton.isHidden = true
-        sendChatMessageButton.isHidden = true
+        sendBroadcastChatButton.isHidden = true
+        sendPrivateChatButton.isHidden = true
         blinkLedButton.isHidden = true
         scanConnectDisconnectButton.setTitle("Scanning...", for: .normal)
         scanConnectDisconnectButton.isEnabled = false

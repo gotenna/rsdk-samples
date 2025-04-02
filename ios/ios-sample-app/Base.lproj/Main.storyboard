@@ -42,13 +42,22 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="di4-u6-KuJ">
                                 <rect key="frame" x="0.0" y="464" width="393" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Send Chat Message"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send Broadcast Chat"/>
                                 <connections>
-                                    <action selector="sendChatMessageButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Vv-BA-Aeo"/>
+                                    <action selector="sendBroadcastChatTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Vv-BA-Aeo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D64-Dw-otw">
+                                <rect key="frame" x="0.0" y="507" width="393" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send Private Chat"/>
+                                <connections>
+                                    <action selector="sendBroadcastChatTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Yf-MI-t5T"/>
+                                    <action selector="sendPrivateChatTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="st5-3y-yH7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRY-Pe-eRL">
-                                <rect key="frame" x="0.0" y="507" width="393" height="35"/>
+                                <rect key="frame" x="0.0" y="550" width="393" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Blink LED"/>
                                 <connections>
@@ -59,17 +68,21 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="height" secondItem="di4-u6-KuJ" secondAttribute="height" id="1mC-6B-5If"/>
-                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="trailing" secondItem="di4-u6-KuJ" secondAttribute="trailing" id="7CR-vm-btv"/>
+                            <constraint firstItem="D64-Dw-otw" firstAttribute="leading" secondItem="di4-u6-KuJ" secondAttribute="leading" id="9d0-5S-39w"/>
                             <constraint firstItem="di4-u6-KuJ" firstAttribute="leading" secondItem="HVm-bu-N6t" secondAttribute="leading" id="Huv-R5-ph2"/>
                             <constraint firstItem="HVm-bu-N6t" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Q0w-WT-sBs"/>
-                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="leading" secondItem="di4-u6-KuJ" secondAttribute="leading" id="Sj1-XP-HcU"/>
                             <constraint firstItem="HVm-bu-N6t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TDI-Xl-4Jp"/>
+                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="leading" secondItem="D64-Dw-otw" secondAttribute="leading" id="Tri-YR-F9O"/>
+                            <constraint firstItem="D64-Dw-otw" firstAttribute="top" secondItem="di4-u6-KuJ" secondAttribute="bottom" constant="8" symbolic="YES" id="XGv-dE-PsB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="f3m-FY-lIW" secondAttribute="bottom" id="a8G-EV-zx3"/>
                             <constraint firstItem="f3m-FY-lIW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eBs-Rw-CrK"/>
+                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="trailing" secondItem="D64-Dw-otw" secondAttribute="trailing" id="fCX-dE-K6q"/>
                             <constraint firstItem="di4-u6-KuJ" firstAttribute="trailing" secondItem="HVm-bu-N6t" secondAttribute="trailing" id="h3b-OR-byr"/>
-                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="top" secondItem="di4-u6-KuJ" secondAttribute="bottom" constant="8" symbolic="YES" id="hJg-MK-sFG"/>
+                            <constraint firstItem="D64-Dw-otw" firstAttribute="height" secondItem="di4-u6-KuJ" secondAttribute="height" id="hbA-Lc-TYR"/>
+                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="top" secondItem="D64-Dw-otw" secondAttribute="bottom" constant="8" symbolic="YES" id="lDs-A6-lr0"/>
                             <constraint firstItem="di4-u6-KuJ" firstAttribute="height" secondItem="HVm-bu-N6t" secondAttribute="height" id="lyq-Ns-rqX"/>
+                            <constraint firstItem="D64-Dw-otw" firstAttribute="trailing" secondItem="di4-u6-KuJ" secondAttribute="trailing" id="oxm-SK-C2z"/>
+                            <constraint firstItem="fRY-Pe-eRL" firstAttribute="height" secondItem="D64-Dw-otw" secondAttribute="height" id="rh0-8v-Pek"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HVm-bu-N6t" secondAttribute="trailing" id="tDq-WH-ZE3"/>
                             <constraint firstItem="di4-u6-KuJ" firstAttribute="top" secondItem="HVm-bu-N6t" secondAttribute="bottom" constant="8" symbolic="YES" id="w0W-57-psD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="f3m-FY-lIW" secondAttribute="trailing" id="zQn-J6-O4p"/>
@@ -78,8 +91,9 @@
                     <connections>
                         <outlet property="blinkLedButton" destination="fRY-Pe-eRL" id="Vpg-ow-omy"/>
                         <outlet property="scanConnectDisconnectButton" destination="f3m-FY-lIW" id="Fk3-ow-PSU"/>
-                        <outlet property="sendChatMessageButton" destination="di4-u6-KuJ" id="blu-1W-CaR"/>
+                        <outlet property="sendBroadcastChatButton" destination="di4-u6-KuJ" id="blu-1W-CaR"/>
                         <outlet property="sendLocationButton" destination="HVm-bu-N6t" id="830-df-mUN"/>
+                        <outlet property="sendPrivateChatButton" destination="D64-Dw-otw" id="aMF-TS-dAp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
