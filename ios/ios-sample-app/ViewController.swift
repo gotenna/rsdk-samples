@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     
     private var activeRadio: RadioModel?
     private var radioConnectionState = RadioState.disconnected
+    private let senderUuid = UUID().uuidString
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +80,7 @@ class ViewController: UIViewController {
                     recipientUUID: "",
                     appCode: 0,
                     senderGid: activeRadio?.personalGid ?? 0,
-                    senderUUID: UUID().uuidString,
+                    senderUUID: senderUuid,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
                     uuid: UUID().uuidString
@@ -116,7 +117,7 @@ class ViewController: UIViewController {
                     recipientUUID: "",
                     appCode: 0,
                     senderGid: activeRadio?.personalGid ?? 0,
-                    senderUUID: UUID().uuidString,
+                    senderUUID: senderUuid,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
                     uuid: UUID().uuidString
