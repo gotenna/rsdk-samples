@@ -1,0 +1,15 @@
+{
+  "originHash" : "9b43e06b27e4d5f5d40a6f1a87bb482121e7f8e10bdc036f073fda6af2c7079f",
+  "pins" : [
+    {
+      "identity" : "gotenna-rsdk-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gotenna/gotenna-rsdk-spm",
+      "state" : {
+        "revision" : "fc3715af073795aa91121f2f2b3f507cf9e3b6a4",
+        "version" : "3.1.13"
+      }
+    }
+  ],
+  "version" : 3
+}
