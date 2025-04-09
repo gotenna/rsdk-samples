@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		51F711282DA5AF4900EC503D /* RSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 51F711272DA5AF4900EC503D /* RSDK */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		519F04E12CB0917300F6790A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -49,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51F711282DA5AF4900EC503D /* RSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +105,7 @@
 			);
 			name = "ios-sample-app";
 			packageProductDependencies = (
+				51F711272DA5AF4900EC503D /* RSDK */,
 			);
 			productName = "ios-sample-app";
 			productReference = 5199F32C2CA475FC00AF77CC /* ios-sample-app.app */;
@@ -129,6 +135,9 @@
 			);
 			mainGroup = 5199F3232CA475FC00AF77CC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				51F711262DA5AF4900EC503D /* XCRemoteSwiftPackageReference "gotenna-rsdk-spm" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5199F32D2CA475FC00AF77CC /* Products */;
 			projectDirPath = "";
@@ -365,6 +374,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		51F711262DA5AF4900EC503D /* XCRemoteSwiftPackageReference "gotenna-rsdk-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gotenna/gotenna-rsdk-spm";
+			requirement = {
+				kind = exactVersion;
+				version = 3.1.13;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		51F711272DA5AF4900EC503D /* RSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51F711262DA5AF4900EC503D /* XCRemoteSwiftPackageReference "gotenna-rsdk-spm" */;
+			productName = RSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5199F3242CA475FC00AF77CC /* Project object */;
 }
