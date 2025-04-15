@@ -4,32 +4,4 @@ A sample project demonstrating how to integrate and use the RSDK (Radio SDK) in 
 
 ---
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Setup Instructions](#setup-instructions)
-- [Project Structure](#project-structure)
-- [Running the Application](#running-the-application)
-
----
-
-## Overview
-
-This project is designed to showcase the integration of RSDK in an iOS application. It includes examples of initializing the SDK, handling radio connection events, and integrating UI components with radio functionalities. Whether you're a beginner or an experienced developer, this guide will help you set up and run the sample project with ease.
-
----
-
-## Setup Instructions
-
-### Prerequisites
-
-- [Xcode](https://developer.apple.com/xcode/) (version 12.0 or later recommended)
-- iOS SDK (minimum iOS 11)
-- Git
-
-### Clone the Repository
-
-Clone the repository to your local machine:
-
-```bash
-git clone https://github.com/yourrepo/rsdk-sample.git
+Please see the full documentation in our SDK repo: https://github.com/gotenna/gotenna-rsdk-spm
