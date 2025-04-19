@@ -1,16 +1,21 @@
-# RSDK Android Sample Project
+# Gotenna RSDK Android Sample Project
 
-A sample project demonstrating how to integrate and use the RSDK (Radio SDK) in an Android environment.
+A sample project demonstrating how to integrate and use the Gotenna RSDK (Radio SDK) in an Android environment.
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Setup Instructions](#setup-instructions)
-- [Project Structure](#project-structure)
-- [Running the Application](#running-the-application)
-
+- [Setup](#setup)
+  - [Prerequisites](#prerequisites)
+  - [Clone the Repository](#clone-the-repository)
+  - [Repository & Credentials ](#repository--credentials)
+- [Usage](#usage)
+  - [Android Permissions](#android-permissions)
+  - [Initialize](#initialize)
+  - [Basic API](#basic-api)
+  
 ---
 
 ## Overview
@@ -19,17 +24,76 @@ This project is designed to showcase the integration of RSDK in an Android appli
 
 ---
 
-## Setup Instructions
+## Setup
 
 ### Prerequisites
 
-- [Android Studio](https://developer.android.com/studio) (version 4.0 or later recommended)
-- Android SDK (minimum API level 21)
+- [Android Studio](https://developer.android.com/studio) (Meerkat | 2024.3.1 or later recommended)
+- Android SDK (minimum API level 26)
 - Git
+
 
 ### Clone the Repository
 
-Clone the repository to your local machine:
+Clone the repository to your local machine.
 
 ```bash
-git clone https://github.com/yourrepo/rsdk-sample.git
+git clone https://github.com/gotenna/rsdk-samples.git
+```
+
+
+### Repository & Credentials
+
+To be able to import the Gotenna RSDK, credentials must be added to the project's `local.properties`.
+The credentials are provided by Gotenna.
+
+```
+artifactory.user=abc@def.ghi
+artifactory.password=jkl
+sdk.token=mno
+sdk.appid=pqr
+```
+
+
+In addition, the following Gotenna repository must be added to a project. This has already been done for this sample project.
+
+[settings.gradle.kts](../android/settings.gradle.kts)
+```
+dependencyResolutionManagement {
+    repositories {
+        maven {
+            url = uri("https://gotenna.jfrog.io/artifactory/android-libs-release-local")
+            credentials {
+                username = [artifactoryUser]
+                password = [artifactoryPassword]
+            }
+        }
+    }
+}
+```
+
+---
+
+## Usage
+
+### Android Permissions
+
+Various Android run-time permissions are required by the RSDK to function. Refer to the [PermissionActivity](../android/app/src/main/java/com/gotenna/android/rsdksample/PermissionActivity.kt) for list of permissions.
+
+
+### Initialize
+
+`GotennaClient` must first be initialized. This is recommended to be done in the [Application](../android/app/src/main/java/com/gotenna/android/rsdksample/SampleApplication.kt) class.
+
+```kotlin
+GotennaClient.initialize(
+    context = applicationContext,
+    sdkToken = SDK_TOKEN,
+    appId = APP_ID,
+)
+```
+
+
+### Basic API
+
+Refer to the [RadioManager](../android/app/src/main/java/com/gotenna/android/rsdksample/RadioManager.kt) class for basic calls to the RSDK API.
