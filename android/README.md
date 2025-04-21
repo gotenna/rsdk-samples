@@ -96,4 +96,20 @@ GotennaClient.initialize(
 
 ### Basic API
 
+#### Scan for radios
+
+Will return a list of radios found nearby.
+
+```kotlin
+val radioList = GotennaClient.scan(connectionType)
+```
+
+#### Connect to a radio
+
+Take the radio from the scan list and call .connect() on it.
+
+```kotlin
+val result = radio.connect()
+```
+
 Refer to the [RadioManager](../android/app/src/main/java/com/gotenna/android/rsdksample/RadioManager.kt) class for basic calls to the RSDK API.
