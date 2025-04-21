@@ -32,6 +32,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Gotenna Sample App"
+rootProject.name = "goTenna Sample App"
 include(":app")
  

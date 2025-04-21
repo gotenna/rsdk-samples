@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gotenna Sample App</string>
+    <string name="app_name">goTenna Sample App</string>
     <string name="permission_denied">Required permissions not granted.</string>
     <string name="permission_denied_permanently">Required permissions have been permanently denied. Please enable them in the system settings.</string>
     <string name="open_settings">Settings</string>

@@ -4,7 +4,6 @@ import com.gotenna.radio.sdk.GotennaClient
 import com.gotenna.radio.sdk.common.configuration.GTBandwidth
 import com.gotenna.radio.sdk.common.configuration.GTFrequencyChannel
 import com.gotenna.radio.sdk.common.configuration.GTPowerLevel
-import com.gotenna.radio.sdk.common.configuration.GidType
 import com.gotenna.radio.sdk.common.models.CommandMetaData
 import com.gotenna.radio.sdk.common.models.ConnectionType
 import com.gotenna.radio.sdk.common.models.GTMessagePriority
@@ -18,7 +17,7 @@ import kotlinx.coroutines.flow.update
 import java.util.UUID
 
 /**
- * Manages Gotenna radio commands
+ * Manages goTenna radio commands
  */
 object RadioManager {
     private val connectedRadio: MutableStateFlow<RadioModel?> = MutableStateFlow(null)
@@ -37,11 +36,6 @@ object RadioManager {
         radio.connect()
 
         sessionId = UUID.randomUUID().toString()
-
-        setGid(
-            radio = radio,
-            gid = radio.personalGid,
-        )
 
         setPowerAndBandwidth(
             radio = radio,
@@ -83,12 +77,6 @@ object RadioManager {
         sessionId = ""
     }
 
-    suspend fun setGid(radio: RadioModel, gid: Long) =
-        radio.setGid(
-            gid = gid,
-            type = GidType.PRIVATE,
-        )
-
     suspend fun setFrequencyChannels(radio: RadioModel, channels: List<GTFrequencyChannel>) =
         radio.setFrequencyChannels(channels)
 
@@ -115,30 +103,47 @@ object RadioManager {
             )
         )
 
-    suspend fun sendChatMessage(privateMessage: Boolean = false, destinationGid: Long = 0) =
+    suspend fun sendBroadcastChatMessage() =
         connectedRadio.value?.run {
             send(
                 SendToNetwork.ChatMessage(
                     commandMetaData = CommandMetaData(
-                        messageType = if (privateMessage) GTMessageType.PRIVATE else GTMessageType.BROADCAST,
-                        destinationGid = if (privateMessage) destinationGid else 0L,
-                        senderGid = personalGid
+                        messageType = GTMessageType.BROADCAST,
+                        senderGid = personalGid,
                     ),
                     commandHeader = GotennaHeaderWrapper(
                         uuid = UUID.randomUUID().toString(),
                         senderGid = personalGid,
                         senderCallsign = sessionCallsign,
                         messageTypeWrapper = MessageTypeWrapper.CHAT_MESSAGE,
-                        appCode = 123,
-                        recipientUUID = UUID.randomUUID().toString(),
                         senderUUID = sessionId,
-                        encryptionParameters = null,
                     ),
-                    text = "chat message",
+                    text = "broadcast message",
                     chatId = 12345,
-                    conversationId = UUID.randomUUID().toString(),
-                    conversationName = "conversation name",
-                    chatMessageId = UUID.randomUUID().toString()
+                    chatMessageId = UUID.randomUUID().toString(),
+                )
+            )
+        }
+
+    suspend fun sendPrivateChatMessage(destinationGid: Long) =
+        connectedRadio.value?.run {
+            send(
+                SendToNetwork.ChatMessage(
+                    commandMetaData = CommandMetaData(
+                        messageType = GTMessageType.PRIVATE,
+                        destinationGid = destinationGid,
+                        senderGid = personalGid,
+                    ),
+                    commandHeader = GotennaHeaderWrapper(
+                        uuid = UUID.randomUUID().toString(),
+                        senderGid = personalGid,
+                        senderCallsign = sessionCallsign,
+                        messageTypeWrapper = MessageTypeWrapper.CHAT_MESSAGE,
+                        senderUUID = sessionId,
+                    ),
+                    text = "private message",
+                    chatId = 67890,
+                    chatMessageId = UUID.randomUUID().toString(),
                 )
             )
         }

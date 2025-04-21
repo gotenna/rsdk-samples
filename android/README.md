@@ -1,6 +1,6 @@
-# Gotenna RSDK Android Sample Project
+# goTenna RSDK Android Sample Project
 
-A sample project demonstrating how to integrate and use the Gotenna RSDK (Radio SDK) in an Android environment.
+A sample project demonstrating how to integrate and use the goTenna RSDK (Radio SDK) in an Android environment.
 
 ---
 
@@ -44,8 +44,8 @@ git clone https://github.com/gotenna/rsdk-samples.git
 
 ### Repository & Credentials
 
-To be able to import the Gotenna RSDK, credentials must be added to the project's `local.properties`.
-The credentials are provided by Gotenna.
+To be able to import the goTenna RSDK, credentials must be added to the project's `local.properties`.
+The credentials are provided by goTenna.
 
 ```
 artifactory.user=abc@def.ghi
@@ -55,7 +55,7 @@ sdk.appid=pqr
 ```
 
 
-In addition, the following Gotenna repository must be added to a project. This has already been done for this sample project.
+In addition, the following goTenna repository must be added to a project. This has already been done for this sample project.
 
 [settings.gradle.kts](../android/settings.gradle.kts)
 ```

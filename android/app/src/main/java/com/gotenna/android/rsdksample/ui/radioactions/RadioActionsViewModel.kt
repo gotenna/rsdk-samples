@@ -22,7 +22,7 @@ class RadioActionsViewModel : ViewModel() {
     }
 
     fun sendBroadcastChatMessage() = launchWithLoading {
-        RadioManager.sendChatMessage()
+        RadioManager.sendBroadcastChatMessage()
     }
 
     fun sendPrivateChatMessage() = launchWithLoading {
