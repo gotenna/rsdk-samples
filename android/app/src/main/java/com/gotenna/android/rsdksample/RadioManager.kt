@@ -56,21 +56,29 @@ object RadioManager {
         connectedRadio.value?.performLedBlink()
 
     suspend fun sendPli() =
-        connectedRadio.value?.send(
-            SendToNetwork.Location(
-                how = "h-e",
-                staleTime = 60,
-                lat = 35.291802,
-                long = 80.846604,
-                altitude = 237.21325546763973,
-                team = "CYAN",
-                accuracy = 11,
-                creationTime = System.currentTimeMillis(),
-                messageId = 0,
-                commandMetaData = CommandMetaData(messageType= GTMessageType.BROADCAST, destinationGid=0, isPeriodic=false, priority= GTMessagePriority.NORMAL, senderGid=904610228241489),
-                commandHeader = GotennaHeaderWrapper(timeStamp=1718745135761, messageTypeWrapper= MessageTypeWrapper.LOCATION, appCode=0, senderGid=904610228241489, senderUUID="ANDROID-2440142b8ac6d5d7", senderCallsign="JONAS", encryptionParameters=null),
+        connectedRadio.value?.run {
+            send(
+                SendToNetwork.Location(
+                    how = "h-e",
+                    staleTime = 60,
+                    lat = 35.291802,
+                    long = 80.846604,
+                    altitude = 237.21325546763973,
+                    team = "CYAN",
+                    accuracy = 11,
+                    commandMetaData = CommandMetaData(
+                        messageType = GTMessageType.BROADCAST,
+                        senderGid = personalGid,
+                    ),
+                    commandHeader = GotennaHeaderWrapper(
+                        messageTypeWrapper = MessageTypeWrapper.LOCATION,
+                        senderUUID = sessionId,
+                        senderGid = personalGid,
+                        senderCallsign = sessionCallsign,
+                    ),
+                )
             )
-        )
+        }
 
     suspend fun sendBroadcastChatMessage() =
         connectedRadio.value?.run {
@@ -81,11 +89,10 @@ object RadioManager {
                         senderGid = personalGid,
                     ),
                     commandHeader = GotennaHeaderWrapper(
-                        uuid = UUID.randomUUID().toString(),
+                        messageTypeWrapper = MessageTypeWrapper.BROADCAST_MESSAGE,
+                        senderUUID = sessionId,
                         senderGid = personalGid,
                         senderCallsign = sessionCallsign,
-                        messageTypeWrapper = MessageTypeWrapper.CHAT_MESSAGE,
-                        senderUUID = sessionId,
                     ),
                     text = "broadcast message",
                     chatId = 12345,
@@ -104,11 +111,10 @@ object RadioManager {
                         senderGid = personalGid,
                     ),
                     commandHeader = GotennaHeaderWrapper(
-                        uuid = UUID.randomUUID().toString(),
-                        senderGid = personalGid,
-                        senderCallsign = sessionCallsign,
                         messageTypeWrapper = MessageTypeWrapper.CHAT_MESSAGE,
                         senderUUID = sessionId,
+                        senderGid = personalGid,
+                        senderCallsign = sessionCallsign,
                     ),
                     text = "private message",
                     chatId = 67890,

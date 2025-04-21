@@ -46,6 +46,8 @@ class RadioManagementViewModel : ViewModel() {
             bandwidth = GTBandwidth.BANDWIDTH_11_8,
         )
 
+        // Note: Values used here is only for example.
+        // Please use your Part 90 allocated or local regulatory body's allowed frequencies.
         setFrequencyChannels(
             channels = listOf(
                 // Data channels
