@@ -37,37 +37,6 @@ object RadioManager {
 
         sessionId = UUID.randomUUID().toString()
 
-        setPowerAndBandwidth(
-            radio = radio,
-            powerLevel = GTPowerLevel.ONE,
-            bandwidth = GTBandwidth.BANDWIDTH_11_8,
-        )
-
-        setFrequencyChannels(
-            radio = radio,
-            channels = listOf(
-                // Data channels
-                GTFrequencyChannel(
-                    148000000,
-                    isControlChannel = false,
-                ),
-                GTFrequencyChannel(
-                    149000000,
-                    isControlChannel = false,
-                ),
-
-                // Control channels
-                GTFrequencyChannel(
-                    158000000,
-                    isControlChannel = true,
-                ),
-                GTFrequencyChannel(
-                    159000000,
-                    isControlChannel = true,
-                ),
-            )
-        )
-
         connectedRadio.update { radio }
     }
 
@@ -77,11 +46,11 @@ object RadioManager {
         sessionId = ""
     }
 
-    suspend fun setFrequencyChannels(radio: RadioModel, channels: List<GTFrequencyChannel>) =
-        radio.setFrequencyChannels(channels)
+    suspend fun setFrequencyChannels(channels: List<GTFrequencyChannel>) =
+        connectedRadio.value?.setFrequencyChannels(channels)
 
-    suspend fun setPowerAndBandwidth(radio: RadioModel, powerLevel: GTPowerLevel, bandwidth: GTBandwidth) =
-        radio.setPowerAndBandwidth(power = powerLevel, bandwidth = bandwidth)
+    suspend fun setPowerAndBandwidth(powerLevel: GTPowerLevel, bandwidth: GTBandwidth) =
+        connectedRadio.value?.setPowerAndBandwidth(power = powerLevel, bandwidth = bandwidth)
 
     suspend fun flashLed() =
         connectedRadio.value?.performLedBlink()
