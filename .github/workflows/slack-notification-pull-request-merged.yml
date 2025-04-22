@@ -1,0 +1,34 @@
+name: Slack Notification - Pull Request Merged
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  send_slack_message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Message
+        uses: slackapi/slack-github-action@v1.27.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "text": "🟢  ${{ github.event.pull_request.merged_by.login }} merged <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }} - ${{ github.event.pull_request.head.repo.full_name }}>",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "🟢  *${{ github.event.pull_request.merged_by.login }} merged*:\n<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }} - ${{ github.event.pull_request.head.repo.full_name }}>"
+                  }
+                },
+                {
+                  "type": "divider"
+                }
+              ]
+            }
+        
