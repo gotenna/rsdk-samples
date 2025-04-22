@@ -46,6 +46,14 @@ class ViewController: UIViewController {
                     activeRadio = radios.first
                     startObservingRadioState()
                     try await activeRadio?.connect()
+                    
+                    // Note: Values used here is only for example.
+                    // Please use your Part 90 allocated or local regulatory body's allowed frequencies.
+                    let controlChannel = GTFrequencyChannel(frequencyMhz: 455, isControlChannel: true)
+                    let dataChannel = GTFrequencyChannel(frequencyMhz: 465, isControlChannel: false)
+                    try await activeRadio?.setFrequencyChannels(channels: [controlChannel, dataChannel])
+                    try await activeRadio?.setPowerAndBandwidth(power: GTPowerLevel.five, bandwidth: GTBandwidth.bandwidth118)
+                    
                     updateUIState(.connected)
                     startObservingRadioEvents()
                 } else {
