@@ -1,0 +1,58 @@
+name: Slack Notification - Pull Request Opened
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  send_slack_message:
+    if: github.repository == 'gotenna/rsdk-samples'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Message
+        uses: slackapi/slack-github-action@v1.27.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "text": "⭕️  Pull Request Opened - ${{ github.event.pull_request.head.repo.full_name }}: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "⭕️  Pull Request Opened",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Title*:\n<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Repository*:\n<${{ github.event.pull_request.head.repo.html_url }}|${{ github.event.pull_request.head.repo.full_name }}>"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Author*:\n${{ github.event.pull_request.user.login }}"
+                  }
+                },
+                {
+                  "type": "divider"
+                }
+              ]
+            }
+        
