@@ -1,6 +1,7 @@
 package com.gotenna.android.rsdksample
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import com.gotenna.radio.sdk.GotennaClient
 import com.gotenna.radio.sdk.initialize
@@ -14,6 +15,7 @@ class SampleApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         initGotennaClient()
     }
 
@@ -23,5 +25,12 @@ class SampleApplication : Application() {
     private fun initGotennaClient() = scope.launch {
         val initialized = GotennaClient.initialize (context = applicationContext, sdkToken = BuildConfig.SDK_TOKEN, appId = BuildConfig.APP_ID, enableDebugLogs = true)
         Log.d("SampleApplication", "initialized: $initialized");
+    }
+
+    companion object {
+        private lateinit var instance: SampleApplication
+
+        val context: Context
+            get() = instance.applicationContext
     }
 }
