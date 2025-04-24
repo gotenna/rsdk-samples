@@ -51,7 +51,7 @@ The credentials are provided by goTenna.
 artifactory.user=abc@def.ghi
 artifactory.password=jkl
 sdk.token=mno
-sdk.appid=pqr
+sdk.app.id=pqr
 ```
 
 
