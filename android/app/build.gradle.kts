@@ -7,7 +7,7 @@ plugins {
 }
 
 val sdkToken: String = gradleLocalProperties(rootDir, providers).getProperty("sdk.token")
-val appId: String = gradleLocalProperties(rootDir, providers).getProperty("sdk.appid")
+val appId: String = gradleLocalProperties(rootDir, providers).getProperty("sdk.app.id")
 
 android {
     namespace = "com.gotenna.android.rsdksample"
