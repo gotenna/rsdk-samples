@@ -25,11 +25,13 @@ class RadioActionsViewModel : ViewModel() {
         RadioManager.sendBroadcastChatMessage()
     }
 
-    fun sendPrivateChatMessage() = launchWithLoading {
-        // TODO
+    fun sendPrivateChatMessage(callsign: String) = launchWithLoading {
+        val gid = RadioManager.contacts[callsign] ?: return@launchWithLoading
+        RadioManager.sendPrivateChatMessage(gid)
     }
 
     fun disconnect() = launchWithLoading {
         RadioManager.disconnect()
+        RadioManager.stopMessageReceiver()
     }
 }

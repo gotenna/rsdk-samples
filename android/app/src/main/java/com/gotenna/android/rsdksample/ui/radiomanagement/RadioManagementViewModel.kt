@@ -4,8 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import com.gotenna.android.rsdksample.RadioManager
-import com.gotenna.android.rsdksample.RadioManager.setFrequencyChannels
-import com.gotenna.android.rsdksample.RadioManager.setPowerAndBandwidth
 import com.gotenna.android.rsdksample.utils.launchWithLoading
 import com.gotenna.android.rsdksample.utils.trigger
 import com.gotenna.radio.sdk.common.configuration.GTBandwidth
@@ -41,14 +39,14 @@ class RadioManagementViewModel : ViewModel() {
     private fun connectAndInitialize(radio: RadioModel) = launchWithLoading {
         RadioManager.connect(radio)
 
-        setPowerAndBandwidth(
+        RadioManager.setPowerAndBandwidth(
             powerLevel = GTPowerLevel.ONE,
             bandwidth = GTBandwidth.BANDWIDTH_11_8,
         )
 
         // Note: Values used here is only for example.
         // Please use your Part 90 allocated or local regulatory body's allowed frequencies.
-        setFrequencyChannels(
+        RadioManager.setFrequencyChannels(
             channels = listOf(
                 // Data channels
                 GTFrequencyChannel(
@@ -71,6 +69,8 @@ class RadioManagementViewModel : ViewModel() {
                 ),
             )
         )
+
+        RadioManager.startMessageReceiver()
 
         radios.update { emptyList() }
         eventNavToActions.trigger()
