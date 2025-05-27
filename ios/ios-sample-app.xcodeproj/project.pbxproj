@@ -381,7 +381,7 @@
 			repositoryURL = "https://github.com/gotenna/gotenna-rsdk-spm";
 			requirement = {
 				kind = exactVersion;
-				version = 3.1.15;
+				version = 3.2.29;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
