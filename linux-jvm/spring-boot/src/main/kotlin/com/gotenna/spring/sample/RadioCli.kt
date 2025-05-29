@@ -24,6 +24,7 @@ import org.springframework.shell.command.annotation.Command
 import org.springframework.shell.command.annotation.Option
 import org.springframework.shell.standard.ShellCommandGroup
 import java.io.File
+import java.io.PrintStream
 import java.util.*
 import kotlin.random.Random
 
@@ -34,7 +35,11 @@ class RadioCli {
     private var devices: MutableList<RadioModel> = mutableListOf()
     private var destination: Long = 0L
 
+    private val fullStream: PrintStream = System.out
+
     init {
+        System.setOut(PrintStream(RadioLogSuppressor(System.out)))
+
         // Loads the SDK token and app id from local.properties. You can hard code it but this way it is safer.
         val localProperties = loadLocalProperties(File(System.getProperty("user.dir")))
         val sdkToken = localProperties.getProperty("sdk.token")
@@ -212,6 +217,50 @@ class RadioCli {
                 channels
             )
         }
+    }
+
+    @Command(
+        command = ["getFrequencies"],
+        description = "This will get the frequencies of the first radio."
+    )
+    fun getFrequencies() {
+        runBlocking {
+            val result = devices.firstOrNull()?.getFrequencyChannels()
+            if (result != null) {
+                result.executedOrNull()?.channels?.let { channels ->
+                    println("Control channels: ${channels.filter { it.isControlChannel }}")
+                    println("Data channels: ${channels.filter { !it.isControlChannel }}")
+                }
+            } else {
+                println("No frequencies found.")
+            }
+        }
+    }
+
+    @Command(
+        command = ["getPowerAndBandwidth"],
+        description = "This will get the power and bandwidth of the first radio."
+    )
+    fun getPowerAndBandwidth() {
+        runBlocking {
+            val result = devices.firstOrNull()?.getPowerAndBandwidth()
+            if (result != null) {
+                result.executedOrNull()?.let {
+                    println("Power Level: ${it.power}")
+                    println("Bandwidth: ${it.bandwidth}")
+                }
+            } else {
+                println("No power and bandwidth found.")
+            }
+        }
+    }
+
+    @Command(
+        command = ["unsuppressLogs"],
+        description = "This will unsuppress the radio logs and print them to console."
+    )
+    fun unsuppressLogs() {
+        System.setOut(fullStream)
     }
 
     @Command(

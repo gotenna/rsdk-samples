@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.gotenna.sdk-examples.spring-boot"
-version = "0.0.1-SNAPSHOT"
+version = libs.versions.sample.app.get()
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -59,4 +59,10 @@ dependencyManagement {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    archiveBaseName.set("jvm-sample-cli")
+    archiveClassifier.set("")
+    archiveVersion.set(libs.versions.sample.app.get())
 }
