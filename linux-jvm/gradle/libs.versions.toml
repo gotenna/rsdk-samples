@@ -1,4 +1,5 @@
 [versions]
+sample-app = "0.0.2"
 radio-sdk = "3.2.29"
 agp = "8.1.4"
 kotlin = "2.0.0"
