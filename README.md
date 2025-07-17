@@ -1,6 +1,6 @@
 # RSDK - Radio SDK
 
-[![Version](https://img.shields.io/badge/Version-3.2.29-blue)](https://github.com/gotenna/rsdk-samples/)
+[![Version](https://img.shields.io/badge/Version-3.3.19-blue)](https://github.com/gotenna/rsdk-samples/)
 <!-- [![Test Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)](https://ci.example.com/testcoverage) -->
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://ci.example.com/buildstatus)
 
@@ -45,5 +45,5 @@ A demonstration project for using RSDK in a Linux environment via the JVM.
 
 Our commitment to quality is reflected in our comprehensive testing:
 
-- **Number of Tests:** 805 and counting
+- **Tests:** 86.55% coverage
 - **Build Status:** Passing
