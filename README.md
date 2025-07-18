@@ -1,7 +1,7 @@
 # RSDK - Radio SDK
 
-[![Version](https://img.shields.io/badge/Version-3.2.29-blue)](https://github.com/gotenna/rsdk-samples/)
-<!-- [![Test Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)](https://ci.example.com/testcoverage) -->
+[![Version](https://img.shields.io/badge/Version-3.3.19-blue)](https://github.com/gotenna/rsdk-samples/)
+[![Test Coverage](https://img.shields.io/badge/Coverage-86.55%25-brightgreen)](https://ci.example.com/testcoverage)
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://ci.example.com/buildstatus)
 
 RSDK is a robust and efficient SDK designed to handle everything related to radio connections. This sample project demonstrates its capabilities across multiple platforms.
@@ -38,12 +38,3 @@ A complete sample project showcasing the capabilities of RSDK on iOS devices.
 ### Linux JVM Sample
 A demonstration project for using RSDK in a Linux environment via the JVM.  
 *Discover the versatility of RSDK in server-side or desktop applications.*
-
----
-
-## Test Coverage & Results
-
-Our commitment to quality is reflected in our comprehensive testing:
-
-- **Number of Tests:** 805 and counting
-- **Build Status:** Passing
