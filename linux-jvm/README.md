@@ -48,13 +48,15 @@ sdk.token=
 sdk.app.id=
 ```
 
-The SDK is included in the app dependencies
+The SDK is included in the app dependencies,
+it is recommended to add the kotlinx-serialization-protobuf-jvm library as well, as it is used for serialization in the SDK.
 
 ```gradle
 // spring-boot/build.gradle.kts
 dependencies {
     ...
     implementation(libs.radioSdk)
+    implementation(libs.kotlinx.serialization.protobuf.jvm)
 }
 ```
 
