@@ -7,7 +7,7 @@ on:
 
 jobs:
   send_slack_message:
-    if: github.repository == 'gotenna/rsdk-samples'
+    if: github.event.pull_request.merged == true && github.repository == 'gotenna/rsdk-samples'
     runs-on: ubuntu-latest
     steps:
       - name: Send Slack Message
