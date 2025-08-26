@@ -38,3 +38,15 @@ A complete sample project showcasing the capabilities of RSDK on iOS devices.
 ### Linux JVM Sample
 A demonstration project for using RSDK in a Linux environment via the JVM.  
 *Discover the versatility of RSDK in server-side or desktop applications.*
+
+---
+
+## Obtaining your own SDK token
+
+The code in this repository only contains samples for demonstration purposes.
+
+To use the RSDK in your own applications, you will need to obtain a SDK token from goTenna by contacting prosupport@gotenna.com.
+
+
+
+
