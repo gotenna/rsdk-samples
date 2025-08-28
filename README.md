@@ -41,12 +41,39 @@ A demonstration project for using RSDK in a Linux environment via the JVM.
 
 ---
 
+## Supported Features
+
+RSDK delivers a rich set of capabilities to help you build reliable and feature-rich applications across platforms:
+
+Core Radio Management
+- Automatic radio discovery over USB and BLE
+- Seamless connection and disconnection handling
+- Background polling and health checks to ensure stable communication
+
+Command & Data Exchange
+- Bidirectional command handling between app and radio
+- Support for commands such as:
+	- SendToRadio-based operations
+	- Support for GRiP (large data transfer) commands
+
+Firmware Integration
+- Firmware update with progress tracking
+- Validation of firmware compatibility and secure sequence handling
+
+Security
+- Encrypted communication support for radios provided at the client's discretion
+- Silent drop of unauthorized messages for robust security handling
+
+Developer-Friendly Tools
+- Modular API surface for integrating only what you need
+- Extensive test coverage with unit, integration, and system tests
+- Detailed logging for debugging and analytics
+- Detailed API docs integrated into the IDE when you pull down the dependency
+
+ ---
+
 ## Obtaining your own SDK token
 
 The code in this repository only contains samples for demonstration purposes.
 
 To use the RSDK in your own applications, you will need to obtain a SDK token from goTenna by contacting prosupport@gotenna.com.
-
-
-
-
