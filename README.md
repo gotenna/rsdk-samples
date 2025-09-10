@@ -71,7 +71,7 @@ Developer-Friendly Tools
 - Detailed logging for debugging and analytics
 - Detailed API docs integrated into the IDE when you pull down the dependency
 
- ---
+---
 
 ## Obtaining your own SDK token
 
