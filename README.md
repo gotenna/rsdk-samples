@@ -12,9 +12,9 @@ RSDK is a robust and efficient SDK designed to handle everything related to radi
 
 - [Overview](#overview)
 - [Packages](#packages)
-  - [Android Sample](#android-sample)
-  - [iOS Sample](#ios-sample)
-  - [Linux JVM Sample](#linux-jvm-sample)
+	- [Android Sample](#android-sample)
+	- [iOS Sample](#ios-sample)
+	- [Linux JVM Sample](#linux-jvm-sample)
 - [Test Coverage & Results](#test-coverage--results)
 
 ---
@@ -54,7 +54,7 @@ Command & Data Exchange
 - Bidirectional command handling between app and radio
 - Support for commands such as:
 	- Support for GRiP (large data transfer) commands
- 	- Setting the power and bandwidth.
+	- Setting the power and bandwidth.
 	- Setting the frequency.
 	- Flash the led.
 
@@ -77,4 +77,4 @@ Developer-Friendly Tools
 
 The code in this repository only contains samples for demonstration purposes.
 
-To use the RSDK in your own applications, you will need to obtain a SDK token from goTenna by contacting prosupport@gotenna.com.
+To use the RSDK in your own applications, you will need to obtain an SDK token from goTenna by contacting prosupport@gotenna.com.
