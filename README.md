@@ -56,7 +56,7 @@ Command & Data Exchange
 	- Support for GRiP (large data transfer) commands
 	- Setting the power and bandwidth.
 	- Setting the frequency.
-	- Flash the led.
+	- Flash the LED.
 
 Firmware Integration
 - Firmware update with progress tracking
