@@ -53,10 +53,10 @@ Core Radio Management
 Command & Data Exchange
 - Bidirectional command handling between app and radio
 - Support for commands such as:
-	- Support for GRiP (large data transfer) commands
-	- Setting the power and bandwidth.
-	- Setting the frequency.
-	- Flash the LED.
+  - Support for GRiP (large data transfer) commands
+  - Setting the power and bandwidth
+  - Setting the frequency
+  - Flash the LED
 
 Firmware Integration
 - Firmware update with progress tracking
