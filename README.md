@@ -53,16 +53,17 @@ Core Radio Management
 Command & Data Exchange
 - Bidirectional command handling between app and radio
 - Support for commands such as:
-	- SendToRadio-based operations
 	- Support for GRiP (large data transfer) commands
+ 	- Setting the power and bandwidth.
+	- Setting the frequency.
+	- Flash the led.
 
 Firmware Integration
 - Firmware update with progress tracking
-- Validation of firmware compatibility and secure sequence handling
+- Validation of minimum firmware version support based on radio type
 
 Security
-- Encrypted communication support for radios provided at the client's discretion
-- Silent drop of unauthorized messages for robust security handling
+- Encryption is supported by the RSDK, but not IMPLEMENTED by the RSDK. Client applications can apply their own algorithms, rules, conditions, or scenarios in how to handle the encryption/decryption of data
 
 Developer-Friendly Tools
 - Modular API surface for integrating only what you need
