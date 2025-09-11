@@ -12,9 +12,9 @@ RSDK is a robust and efficient SDK designed to handle everything related to radi
 
 - [Overview](#overview)
 - [Packages](#packages)
-  - [Android Sample](#android-sample)
-  - [iOS Sample](#ios-sample)
-  - [Linux JVM Sample](#linux-jvm-sample)
+	- [Android Sample](#android-sample)
+	- [iOS Sample](#ios-sample)
+	- [Linux JVM Sample](#linux-jvm-sample)
 - [Test Coverage & Results](#test-coverage--results)
 
 ---
@@ -41,12 +41,40 @@ A demonstration project for using RSDK in a Linux environment via the JVM.
 
 ---
 
+## Supported Features
+
+RSDK delivers a rich set of capabilities to help you build reliable and feature-rich applications across platforms:
+
+Core Radio Management
+- Automatic radio discovery over USB and BLE
+- Seamless connection and disconnection handling
+- Background polling and health checks to ensure stable communication
+
+Command & Data Exchange
+- Bidirectional command handling between app and radio
+- Support for commands such as:
+  - Support for GRiP (large data transfer) commands
+  - Setting the power and bandwidth
+  - Setting the frequency
+  - Flash the LED
+
+Firmware Integration
+- Firmware update with progress tracking
+- Validation of minimum firmware version support based on radio type
+
+Security
+- Encryption is supported by the RSDK, but not IMPLEMENTED by the RSDK. Client applications can apply their own algorithms, rules, conditions, or scenarios in how to handle the encryption/decryption of data
+
+Developer-Friendly Tools
+- Modular API surface for integrating only what you need
+- Extensive test coverage with unit, integration, and system tests
+- Detailed logging for debugging and analytics
+- Detailed API docs integrated into the IDE when you pull down the dependency
+
+---
+
 ## Obtaining your own SDK token
 
 The code in this repository only contains samples for demonstration purposes.
 
-To use the RSDK in your own applications, you will need to obtain a SDK token from goTenna by contacting prosupport@gotenna.com.
-
-
-
-
+To use the RSDK in your own applications, you will need to obtain an SDK token from goTenna by contacting prosupport@gotenna.com.
