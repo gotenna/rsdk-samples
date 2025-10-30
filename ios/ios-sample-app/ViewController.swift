@@ -27,11 +27,11 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
         Task {
             do {
                 let initialized = try await GotennaClient.shared.initialize(
-                    sdkToken: "3a0433fe7e2671adb4cd7d87851d189f88bd23e82ab06013201642b868b02c8a",
-                    appId: "FCDE",
+                    sdkToken: "<#YOUR_SDK_TOKEN>",
+                    appId: "<#YOUR_APP_ID>",
                     preProcessAction: nil,
                     postProcessAction: nil,
-                    enableLogging: true
+                    enableDebugLogs: true
                 )
                 print("Initialized: \(initialized)")
             } catch {
@@ -92,8 +92,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     destinationGid: 0, // default for broadcasts
                     isPeriodic: false, // default value
                     priority: GTMessagePriority.normal, // default value
-                    senderGid: activeRadio?.personalGid ?? 0,
-                    useFountainCoding: false
+                    senderGid: activeRadio?.personalGid ?? 0
                 ),
                 commandHeader: GotennaHeaderWrapper(
                     timeStamp: Date().millisecondsSinceEpoch,
@@ -104,8 +103,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     senderUUID: senderUuid,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
-                    uuid: UUID().uuidString,
-                    sendMeshAddressResolution: false
+                    uuid: UUID().uuidString
                 ),
                 gripResult: GripResultUnknown(), // default value
                 _bytes: nil, // default value
@@ -131,8 +129,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     destinationGid: 0,
                     isPeriodic: false,
                     priority: GTMessagePriority.normal,
-                    senderGid: activeRadio?.personalGid ?? 0,
-                    useFountainCoding: false
+                    senderGid: activeRadio?.personalGid ?? 0
                 ),
                 commandHeader: GotennaHeaderWrapper(
                     timeStamp: Date().millisecondsSinceEpoch,
@@ -143,8 +140,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     senderUUID: senderUuid,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
-                    uuid: UUID().uuidString,
-                    sendMeshAddressResolution: false
+                    uuid: UUID().uuidString
                 ),
                 gripResult: GripResultUnknown(),
                 _bytes: nil,
@@ -170,8 +166,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     destinationGid: johnGid,
                     isPeriodic: false,
                     priority: GTMessagePriority.normal,
-                    senderGid: activeRadio?.personalGid ?? 0,
-                    useFountainCoding: false
+                    senderGid: activeRadio?.personalGid ?? 0
                 ),
                 commandHeader: GotennaHeaderWrapper(
                     timeStamp: Date().millisecondsSinceEpoch,
@@ -182,8 +177,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     senderUUID: senderUuid,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
-                    uuid: UUID().uuidString,
-                    sendMeshAddressResolution: false
+                    uuid: UUID().uuidString
                 ),
                 gripResult: GripResultUnknown(),
                 _bytes: nil,
