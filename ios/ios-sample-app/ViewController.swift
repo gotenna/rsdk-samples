@@ -2,19 +2,22 @@ import UIKit
 import RSDK
 
 @MainActor
-class ViewController: UIViewController {
+class ViewController: UIViewController , UIDocumentPickerDelegate{
     
     @IBOutlet weak var scanConnectDisconnectButton: UIButton!
     @IBOutlet weak var sendLocationButton: UIButton!
     @IBOutlet weak var sendBroadcastChatButton: UIButton!
     @IBOutlet weak var sendPrivateChatButton: UIButton!
     @IBOutlet weak var blinkLedButton: UIButton!
+    @IBOutlet weak var flashFirmwareButton: UIButton!
+    @IBOutlet weak var deviceInfo: UILabel!
     
     private var activeRadio: RadioModel?
     private var radioConnectionState = RadioState.disconnected
     private let senderUuid = UUID().uuidString
     private let johnUuid = UUID().uuidString
     private let johnGid = Int64(90164571133865)
+    private var deviceDisplayInfo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,9 @@ class ViewController: UIViewController {
                 print("Error initializing: \(error)")
             }
         }
+        deviceInfo.lineBreakMode = .byWordWrapping
+        deviceInfo.numberOfLines = 3
+        
     }
     
     @IBAction func scanButtonTapped(_ sender: UIButton) {
@@ -192,10 +198,17 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func flashFirmwareButtonTapped(_ sender: UIButton) {
+        showDocumentPicker()
+    }
+    
     private func startObservingRadioState() {
         Task {
             try await activeRadio?.radioState.collect(collector: Collector<RadioState>(callback: { [weak self] newState in
                 print("Radio state changed to: \(newState)")
+                DispatchQueue.main.async {
+                    self?.updateUIState(.connected)
+                }
                 self?.radioConnectionState = newState
             }))
         }
@@ -232,6 +245,8 @@ class ViewController: UIViewController {
         blinkLedButton.isHidden = true
         scanConnectDisconnectButton.setTitle("Scan & Connect", for: .normal)
         scanConnectDisconnectButton.isEnabled = true
+        flashFirmwareButton.isHidden = true
+        deviceInfo.text = ""
     }
     
     private func handleConnected() {
@@ -241,6 +256,9 @@ class ViewController: UIViewController {
         blinkLedButton.isHidden = false
         scanConnectDisconnectButton.setTitle("Disconnect", for: .normal)
         scanConnectDisconnectButton.isEnabled = true
+        flashFirmwareButton.isHidden = false
+        deviceInfo.text = "Connected to \(activeRadio?.getRadioInfo()?.deviceSerial) connection state:\(radioConnectionState)\nfirmware version \(activeRadio?.getRadioInfo()?.firmwareVersion)"
+        deviceInfo.sizeToFit()
     }
     
     private func handleScanning() {
@@ -248,8 +266,69 @@ class ViewController: UIViewController {
         sendBroadcastChatButton.isHidden = true
         sendPrivateChatButton.isHidden = true
         blinkLedButton.isHidden = true
+        flashFirmwareButton.isHidden = true
         scanConnectDisconnectButton.setTitle("Scanning...", for: .normal)
         scanConnectDisconnectButton.isEnabled = false
+        deviceInfo.text = "Connecting to \(activeRadio?.getRadioInfo()?.deviceSerial) connection state:\(radioConnectionState)"
+    }
+    
+    func showDocumentPicker() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.item], asCopy: true)
+        documentPicker.delegate = self
+        documentPicker.allowsMultipleSelection = false
+        present(documentPicker, animated: true)
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        Task {
+            guard let url = urls.first else { return }
+            do {
+                // version name is an example and may not be supplied in the file name
+                let pathSegments = url.path().split(separator: "/").last
+                guard let filename = pathSegments?.split(separator: "-"),
+                                      filename.count > 4,
+                                      let majorRevision = Int32(filename[2]),
+                                      let minorRevision = Int32(filename[3]),
+                                      let buildRevision = Int32(filename[4]) else {
+                                    print("Filename does not contain valid version information.")
+                                    return
+                                }
+                let versionNumber = GTFirmwareVersion(majorRevision: majorRevision, minorRevision: minorRevision, buildRevision: buildRevision)
+
+                let binaryData = try Data(contentsOf: url)
+                print("data \(binaryData)")
+                updateFirmware(data: binaryData, versionNumber: versionNumber)
+            } catch {
+                print("failed to get url of file")
+            }
+        }
+    }
+    
+    func updateFirmware(data: Data, versionNumber: GTFirmwareVersion) {
+        Task {
+            do {
+                // convert the data to the kmm byte array format
+                let byteArray:[UInt8] = Array(data)
+                let intArray: [Int8] = byteArray.map { Int8(bitPattern: $0) }
+                let kotlinByteArray: KotlinByteArray = KotlinByteArray(size: Int32(intArray.count))
+                for (index, element) in intArray.enumerated() {
+                        kotlinByteArray.set(index: Int32(index), value: element)
+                    }
+                print("prepared kotlin array \(kotlinByteArray) for version \(versionNumber)")
+                
+                // set a max timeout of 30 mins
+                let result = try await activeRadio?.updateFirmware(firmwareFile: kotlinByteArray, targetFirmware: versionNumber, optionalTimeOutInMins: 1800000)
+                
+                if result is RadioResultFailure<RadioCommand> {
+                    let failure = result as? RadioResultFailure<RadioCommand>
+                    let executed = failure?.throwable
+                    print("failed for reason \(executed)")
+                }
+                print("result of update \(result)")
+            } catch {
+                print("Error performing firmware update: \(error)")
+            }
+        }
     }
     
 }
