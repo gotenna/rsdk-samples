@@ -9,7 +9,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
     @IBOutlet weak var sendBroadcastChatButton: UIButton!
     @IBOutlet weak var sendPrivateChatButton: UIButton!
     @IBOutlet weak var blinkLedButton: UIButton!
-    @IBOutlet weak var flashFirmwareButtton: UIButton!
+    @IBOutlet weak var flashFirmwareButton: UIButton!
     @IBOutlet weak var deviceInfo: UILabel!
     
     private var activeRadio: RadioModel?
@@ -27,8 +27,8 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
         Task {
             do {
                 let initialized = try await GotennaClient.shared.initialize(
-                    sdkToken: "<#YOUR_SDK_TOKEN>",
-                    appId: "<#YOUR_APP_ID>",
+                    sdkToken: "<#YOUR_SDK_TOKEN#>",
+                    appId: "<#YOUR_APP_ID#>",
                     preProcessAction: nil,
                     postProcessAction: nil,
                     enableDebugLogs: true
@@ -245,7 +245,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
         blinkLedButton.isHidden = true
         scanConnectDisconnectButton.setTitle("Scan & Connect", for: .normal)
         scanConnectDisconnectButton.isEnabled = true
-        flashFirmwareButtton.isHidden = true
+        flashFirmwareButton.isHidden = true
         deviceInfo.text = ""
     }
     
@@ -256,7 +256,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
         blinkLedButton.isHidden = false
         scanConnectDisconnectButton.setTitle("Disconnect", for: .normal)
         scanConnectDisconnectButton.isEnabled = true
-        flashFirmwareButtton.isHidden = false
+        flashFirmwareButton.isHidden = false
         deviceInfo.text = "Connected to \(activeRadio?.getRadioInfo()?.deviceSerial) connection state:\(radioConnectionState)\nfirmware version \(activeRadio?.getRadioInfo()?.firmwareVersion)"
         deviceInfo.sizeToFit()
     }
@@ -266,7 +266,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
         sendBroadcastChatButton.isHidden = true
         sendPrivateChatButton.isHidden = true
         blinkLedButton.isHidden = true
-        flashFirmwareButtton.isHidden = true
+        flashFirmwareButton.isHidden = true
         scanConnectDisconnectButton.setTitle("Scanning...", for: .normal)
         scanConnectDisconnectButton.isEnabled = false
         deviceInfo.text = "Connecting to \(activeRadio?.getRadioInfo()?.deviceSerial) connection state:\(radioConnectionState)"
@@ -285,11 +285,16 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
             do {
                 // version name is an example and may not be supplied in the file name
                 let pathSegments = url.path().split(separator: "/").last
-                guard let filename = pathSegments?.split(separator: "-") else {
-                    return
-                }
-                let versionNumber = GTFirmwareVersion(majorRevision: Int32(filename[2])!, minorRevision: Int32(filename[3])!, buildRevision: Int32(filename[4])!)
-                
+                guard let filename = pathSegments?.split(separator: "-"),
+                                      filename.count > 4,
+                                      let majorRevision = Int32(filename[2]),
+                                      let minorRevision = Int32(filename[3]),
+                                      let buildRevision = Int32(filename[4]) else {
+                                    print("Filename does not contain valid version information.")
+                                    return
+                                }
+                let versionNumber = GTFirmwareVersion(majorRevision: majorRevision, minorRevision: minorRevision, buildRevision: buildRevision)
+
                 let binaryData = try Data(contentsOf: url)
                 print("data \(binaryData)")
                 updateFirmware(data: binaryData, versionNumber: versionNumber)
@@ -321,7 +326,7 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                 }
                 print("result of update \(result)")
             } catch {
-                print("Error performing LED blink: \(error)")
+                print("Error performing firmware update: \(error)")
             }
         }
     }
