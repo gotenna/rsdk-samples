@@ -103,7 +103,8 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     senderUUID: senderUuid,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
-                    uuid: UUID().uuidString
+                    uuid: UUID().uuidString,
+                    sendMeshAddressResolution: nil
                 ),
                 gripResult: GripResultUnknown(), // default value
                 _bytes: nil, // default value
@@ -140,7 +141,8 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     senderUUID: senderUuid,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
-                    uuid: UUID().uuidString
+                    uuid: UUID().uuidString,
+                    sendMeshAddressResolution: nil
                 ),
                 gripResult: GripResultUnknown(),
                 _bytes: nil,
@@ -177,7 +179,8 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
                     senderUUID: senderUuid,
                     senderCallsign: "JONAS",
                     encryptionParameters: nil,
-                    uuid: UUID().uuidString
+                    uuid: UUID().uuidString,
+                    sendMeshAddressResolution: nil
                 ),
                 gripResult: GripResultUnknown(),
                 _bytes: nil,
