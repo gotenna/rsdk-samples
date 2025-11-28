@@ -1,6 +1,6 @@
 # RSDK - Radio SDK
 
-[![Version](https://img.shields.io/badge/Version-3.3.19-blue)](https://github.com/gotenna/rsdk-samples/)
+[![Version](https://img.shields.io/badge/Version-3.4.15-blue)](https://github.com/gotenna/rsdk-samples/)
 [![Test Coverage](https://img.shields.io/badge/Coverage-86.55%25-brightgreen)](https://ci.example.com/testcoverage)
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://ci.example.com/buildstatus)
 
