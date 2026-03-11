@@ -76,7 +76,10 @@ Encryption is supported by the RSDK, but not **implemented** by the RSDK. Client
 
 ---
 
-## RadioModel API Reference
+## Feature Reference
+
+### Scan for Radios
+- Scan for radios over USB or BLE
 
 ### Connection Management
 - Connect to a radio with optional LED flash and transmitter configuration on connect
@@ -103,8 +106,7 @@ Encryption is supported by the RSDK, but not **implemented** by the RSDK. Client
 - Get and set the LED state (enabled/disabled)
 - Trigger a 3-blink LED test to identify the physical device
 
-### Emergency & Tether
-- Get and set the emergency beacon state
+### Tether Mode
 - Get and set tether mode with a configurable battery threshold
 
 ### Firmware
