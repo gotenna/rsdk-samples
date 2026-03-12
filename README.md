@@ -88,10 +88,8 @@ Encryption is supported by the RSDK, but not **implemented** by the RSDK. Client
 
 ### Configuration
 - Get and set network configuration (power, bandwidth, frequency channels) in a single request
-- Get and set network MAC mode with configurable backpressure and back-off methods
 - Get and set network mode (listen-only or normal)
 - Get and set operation mode for the radio
-- Set standalone mode for Kestrel radios with callsign, PLI rate, jitter, frequency, and encryption settings
 
 ### Radio Info
 - Fetch the latest device info from hardware or retrieve cached device info
