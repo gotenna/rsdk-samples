@@ -159,7 +159,8 @@ public class JavaRadioCli {
                                 "senderUUID",
                                 "senderCallsign",
                                 null,
-                                "uuid"
+                                "uuid",
+                                null
                         ),
                         GripResult.Unknown.INSTANCE,
                         null,
