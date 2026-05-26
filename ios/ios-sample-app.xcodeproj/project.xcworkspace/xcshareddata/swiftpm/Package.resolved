@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/gotenna/gotenna-rsdk-spm",
       "state" : {
-        "revision" : "3980e9e861c88bb04498def723097abed803f685",
-        "version" : "3.4.15"
+        "revision" : "55ac93c190d7854be293daf494c07d68ebf2a07c",
+        "version" : "3.4.22"
       }
     }
   ],
