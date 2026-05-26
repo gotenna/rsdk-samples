@@ -1,6 +1,6 @@
 [versions]
 sample-app = "0.0.2"
-radio-sdk = "3.4.15"
+radio-sdk = "3.4.22"
 agp = "8.1.4"
 kotlin = "2.0.0"
 kotlinx-serialization = "1.7.0"
