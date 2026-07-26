@@ -1,0 +1,65 @@
+name: Publish JVM Sample
+
+# Builds and publishes the linux-jvm sample Spring Boot jar to Artifactory
+# whenever the JVM sample changes on main. The build number is the workflow
+# run number, so it increases monotonically without version-bump commits.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'linux-jvm/**'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.repository == 'gotenna/rsdk-samples'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: linux-jvm
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java Version
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Create local.properties
+        run: |
+          cat > local.properties <<EOF
+          artifactory.user=${{ secrets.ARTIFACTORY_USER }}
+          artifactory.password=${{ secrets.ARTIFACTORY_PASSWORD }}
+          EOF
+
+      - name: Build jar
+        run: ./gradlew :spring-boot:bootJar -PbuildNumber=${{ github.run_number }}
+
+      - name: Upload jar to JFrog Artifactory
+        env:
+          ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
+          ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+        run: |
+          VERSION=$(sed -n 's/^sample-app = "\(.*\)"$/\1/p' gradle/libs.versions.toml)
+          if [ -z "$VERSION" ]; then
+            echo "Error: could not read sample-app version from gradle/libs.versions.toml"
+            exit 1
+          fi
+          JAR_FILE="jvm-sample-cli-${VERSION}.jar"
+          ARTIFACT_URL="https://gotenna.jfrog.io/artifactory/rsdk-samples/mobile-apps/jvm/regular/${VERSION}-${{ github.run_number }}/${JAR_FILE}"
+          curl -sSf -u "${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD}" \
+            -T "spring-boot/build/libs/${JAR_FILE}" \
+            "$ARTIFACT_URL"
+          echo "Published ${ARTIFACT_URL}" >> "$GITHUB_STEP_SUMMARY"

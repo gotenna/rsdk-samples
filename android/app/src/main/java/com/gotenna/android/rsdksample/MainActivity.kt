@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.tvVersion.text = getString(R.string.version_info, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+
         setupObservers()
 
         // Load initial Fragment

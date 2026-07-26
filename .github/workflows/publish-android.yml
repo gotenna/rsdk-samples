@@ -1,0 +1,67 @@
+name: Publish Android Sample
+
+# Builds and publishes the Android sample APK to Artifactory whenever the
+# Android sample changes on main. The build number is the workflow run number,
+# so it increases monotonically without version-bump commits.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'android/**'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.repository == 'gotenna/rsdk-samples'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java Version
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Create local.properties
+        run: |
+          cat > local.properties <<EOF
+          artifactory.user=${{ secrets.ARTIFACTORY_USER }}
+          artifactory.password=${{ secrets.ARTIFACTORY_PASSWORD }}
+          sdk.token=${{ secrets.SDK_TOKEN }}
+          sdk.app.id=${{ secrets.SDK_APP_ID }}
+          EOF
+
+      - name: Build APK
+        run: ./gradlew assembleDebug -PbuildNumber=${{ github.run_number }}
+
+      - name: Upload APK to JFrog Artifactory
+        env:
+          ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
+          ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+        run: |
+          VERSION=$(sed -n 's/^[[:space:]]*versionName = "\(.*\)"$/\1/p' app/build.gradle.kts)
+          if [ -z "$VERSION" ]; then
+            echo "Error: could not read versionName from app/build.gradle.kts"
+            exit 1
+          fi
+          APK_FILE="rsdk-sample-android.apk"
+          ARTIFACT_URL="https://gotenna.jfrog.io/artifactory/rsdk-samples/mobile-apps/android/regular/${VERSION}-${{ github.run_number }}/${APK_FILE}"
+          curl -sSf -u "${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD}" \
+            -T app/build/outputs/apk/debug/app-debug.apk \
+            "$ARTIFACT_URL"
+          echo "Published ${ARTIFACT_URL}" >> "$GITHUB_STEP_SUMMARY"

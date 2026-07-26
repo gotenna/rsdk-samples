@@ -40,7 +40,25 @@ class ViewController: UIViewController , UIDocumentPickerDelegate{
         }
         deviceInfo.lineBreakMode = .byWordWrapping
         deviceInfo.numberOfLines = 3
-        
+
+        showVersionLabel()
+    }
+
+    private func showVersionLabel() {
+        let info = Bundle.main.infoDictionary
+        let appVersion = info?["CFBundleShortVersionString"] as? String ?? "?"
+        let buildNumber = info?["CFBundleVersion"] as? String ?? "?"
+
+        let versionLabel = UILabel()
+        versionLabel.text = "v\(appVersion) (\(buildNumber))"
+        versionLabel.font = .preferredFont(forTextStyle: .caption1)
+        versionLabel.textColor = .secondaryLabel
+        versionLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(versionLabel)
+        NSLayoutConstraint.activate([
+            versionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            versionLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -4)
+        ])
     }
     
     @IBAction func scanButtonTapped(_ sender: UIButton) {

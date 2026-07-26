@@ -33,6 +33,7 @@ xcuserdata/
 # User specific schemes should be gitignored unless explicitly shared
 # Commit xcshareddata/xcschemes/ instead
 *.xcscheme
+!*.xcodeproj/xcshareddata/xcschemes/*.xcscheme
 
 # Avoid committing project files backup created by Xcode when correcting conflicts
 *.xcodeproj/project.pbxproj.*.orig

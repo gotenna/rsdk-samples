@@ -11,6 +11,16 @@ plugins {
 group = "com.gotenna.sdk-examples.spring-boot"
 version = libs.versions.sample.app.get()
 
+val buildNumber: String = (project.findProperty("buildNumber") as String?) ?: "0"
+
+springBoot {
+    buildInfo {
+        properties {
+            additional.set(mapOf("buildNumber" to buildNumber))
+        }
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
