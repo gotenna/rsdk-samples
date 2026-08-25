@@ -23,7 +23,7 @@ This project showcases the integration of RSDK in a Linux JVM environment. It de
 
 ### Prerequisites
 
-- Java Development Kit (JDK 11 or later)
+- Java Development Kit (JDK 17)
 - Apache Maven or Gradle (depending on your project configuration)
 - Git
 
@@ -32,7 +32,7 @@ This project showcases the integration of RSDK in a Linux JVM environment. It de
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourrepo/rsdk-sample.git
+git clone https://github.com/gotenna/rsdk-samples.git
 ```
 
 ### Add the SDK to your project

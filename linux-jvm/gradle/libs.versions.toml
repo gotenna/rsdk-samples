@@ -1,24 +1,13 @@
 [versions]
 sample-app = "0.0.2"
 radio-sdk = "3.4.22"
-agp = "8.1.4"
-kotlin = "2.0.0"
+kotlin = "1.9.23"
 kotlinx-serialization = "1.7.0"
-artifactory = "4.32.0"
-dokka = "1.9.20"
-org-jetbrains-kotlin-jvm = "1.9.23"
 
 [libraries]
 radioSdk = { module = "com.gotenna.sdk:radio-sdk-external-jvm", version.ref = "radio-sdk" }
 kotlinx-serialization-protobuf-jvm = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf-jvm", version.ref = "kotlinx-serialization" }
 
 [plugins]
-androidApplication = { id = "com.android.application", version.ref = "agp" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
-artifactory = { id = "com.jfrog.artifactory", version.ref = "artifactory"}
-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlinSpring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }

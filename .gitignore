@@ -25,9 +25,6 @@ hs_err_pid*
 replay_pid*
 java_pid*
 build/*
-radio-sdk/build/*
-spring-sample-app/build/*
-common/build/*
 .DS_Store
 
 .gradle/
@@ -35,4 +32,3 @@ common/build/*
 local.properties
 
 .kotlin
-local.properties
